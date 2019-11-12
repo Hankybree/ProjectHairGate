@@ -1,6 +1,5 @@
 package com.example.projecthairgate;
 
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Bitmap;
@@ -10,16 +9,19 @@ import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 public class BookingActivity extends AppCompatActivity {
+    
     private WebView mWebView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_boking);
+        setContentView(R.layout.activity_booking);
         mWebView = findViewById(R.id.webview);
         webSetting();
     }
-    public void webSetting(){
+
+    private void webSetting() {
+
         String siteUrl = "https://boka.itsperfect.se/27022812";
         mWebView.loadUrl(siteUrl);
         mWebView.getSettings().setJavaScriptEnabled(true);
@@ -30,6 +32,7 @@ public class BookingActivity extends AppCompatActivity {
     }
 
     private class mWebViewClient extends WebViewClient {
+
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             view.loadUrl(url);
@@ -48,8 +51,5 @@ public class BookingActivity extends AppCompatActivity {
             Toast.makeText(BookingActivity.this, "Loading finished", Toast.LENGTH_SHORT).show();
 
         }
-
-
     }
-
 }
