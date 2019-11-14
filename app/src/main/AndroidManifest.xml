@@ -12,12 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+
         <activity
             android:name=".StartMenuActivity"
             android:label="@string/title_activity_start_menu"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <activity android:name=".BookingActivity"></activity>
+
+        <activity android:name=".behandlingar"></activity>
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
