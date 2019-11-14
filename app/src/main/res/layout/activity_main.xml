@@ -11,23 +11,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView"
-        android:text="@string/loadingscreentext"
+        android:text="@string/loading_screen_text"
         android:textSize="40sp"
-        android:textColor="#FFFFFF"
-        android:layout_centerInParent="true"
+        android:textColor="@color/colorWhite"
+        android:layout_centerInParent="true" />
 
-
-        />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/subTextView"
-        android:text="@string/subtextwelcomescreen"
+        android:text="@string/sub_text_welcome_screen"
         android:textSize="20sp"
         android:layout_below="@+id/textView"
         android:layout_centerInParent="true"
-        android:textColor="#FFFFFF"
-        />
-
+        android:textColor="@color/colorWhite" />
 
 </RelativeLayout>

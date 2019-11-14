@@ -9,7 +9,7 @@ import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 public class BookingActivity extends AppCompatActivity {
-    
+
     private WebView mWebView;
 
     @Override
