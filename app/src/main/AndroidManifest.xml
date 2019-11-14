@@ -20,8 +20,6 @@
 
         <activity android:name=".BookingActivity"></activity>
 
-        <activity android:name=".behandlingar"></activity>
-
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
