@@ -4,8 +4,9 @@
     <color name="colorPrimaryO45">#73324158</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
-
-
+    <color name="title_background">#000</color>
+    <color name="blue1">#00BCD4</color>
+    <color name="font_aboutActivity">#000</color>
     <color name="colorGold">#d4af37</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBlack">#000000</color>
