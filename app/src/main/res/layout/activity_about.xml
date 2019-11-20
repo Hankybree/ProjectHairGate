@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/White"
+    android:background="@color/colorWhite"
     android:orientation="vertical">
 
    <ScrollView
@@ -54,7 +54,8 @@
              android:padding="10sp"
              android:layout_marginStart="40dp"
              android:textColor="@color/font_aboutActivity"
-             android:text="@string/phone" />
+             android:text="@string/phone"
+             android:layout_marginLeft="40dp" />
 
          <TextView
              android:id="@+id/Email"
@@ -64,7 +65,8 @@
              android:padding="10sp"
              android:layout_marginStart="40dp"
              android:textColor="@color/font_aboutActivity"
-             android:text="@string/email" />
+             android:text="@string/email"
+             android:layout_marginLeft="40dp" />
 
          <TextView
              android:id="@+id/Time_open"
@@ -85,7 +87,8 @@
              android:padding="10sp"
              android:layout_marginStart="40dp"
              android:textColor="@color/font_aboutActivity"
-             android:text=" Måndag/Torsdag/Fredag: \n\n       08.30 – 18.00 \n\n Tisdag/Onsdag: \n\n        08.30 – 18.30 \n\nLördag: \n\n       09.00 – 13.00" />
+             android:text="@string/schedule"
+             android:layout_marginLeft="40dp" />
 
          <TextView
              android:id="@+id/adress"
@@ -95,7 +98,8 @@
              android:padding="10sp"
              android:layout_marginStart="40dp"
              android:textColor="@color/font_aboutActivity"
-             android:text="@string/adress" />
+             android:text="@string/adress"
+             android:layout_marginLeft="40dp" />
 
          <TextView
              android:id="@+id/maps_title"
