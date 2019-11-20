@@ -34,6 +34,7 @@ public class StartMenuActivity extends AppCompatActivity {
 
     private void initHorizontalViewPager() {
         HorizontalInfiniteCycleViewPager pager = findViewById(R.id.horizontal_cycle);
+        //onswipe YoYo shadow fade-in fade-out
         MyAdapter adapter = new MyAdapter(listImages,getBaseContext());
         pager.setAdapter(adapter);
     }
