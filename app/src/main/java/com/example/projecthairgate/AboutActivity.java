@@ -26,16 +26,15 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import static com.example.projecthairgate.Constants.ERROR_DIALOG_REQUEST;
-import static com.example.projecthairgate.Constants.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION;
-import static com.example.projecthairgate.Constants.PERMISSIONS_REQUEST_ENABLE_GPS;
-import static com.example.projecthairgate.Constants.MAPVIEW_BUNDLE_KEY;
-
 
 public class AboutActivity extends AppCompatActivity implements OnMapReadyCallback{
 
     private static final String TAG = "Maps AboutActivity";
     private static final String FOUND_MAP = "Map found";
+    private static final int ERROR_DIALOG_REQUEST = 9001;
+    private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 9002;
+    private static final int PERMISSIONS_REQUEST_ENABLE_GPS = 9003;
+    private static final String MAPVIEW_BUNDLE_KEY = "MapViewBundleKey";
     private boolean mLocationPermissionGranted = false;
     private MapView mMapView;
 
