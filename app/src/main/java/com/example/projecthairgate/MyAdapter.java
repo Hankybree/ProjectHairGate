@@ -1,7 +1,6 @@
 package com.example.projecthairgate;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +48,7 @@ public class MyAdapter extends PagerAdapter {
     public Object instantiateItem(@NonNull ViewGroup container, final int position) {
         View view = layoutInflater.inflate(R.layout.card_item,container,false);
 
-        final ImageButton imageButton = view.findViewById(R.id.imageButton);
+        ImageButton imageButton = view.findViewById(R.id.imageButton);
         TextView textView = view.findViewById(R.id.on_card_text);
 
         //Sets image and title based on position
