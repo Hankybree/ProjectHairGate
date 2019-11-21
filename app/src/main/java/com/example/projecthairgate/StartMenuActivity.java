@@ -15,6 +15,8 @@ import java.util.List;
 public class StartMenuActivity extends AppCompatActivity {
 
     List<Integer> listImages = new ArrayList<>();
+    List<String> listTitle = new ArrayList<>();
+    private static int count;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,12 @@ public class StartMenuActivity extends AppCompatActivity {
          listImages.add(R.drawable.mainview_kamera);
          listImages.add(R.drawable.mainview_nyteam);
 
+         listTitle.add("BOKA TID");
+         listTitle.add("BEHANDLINGAR");
+         listTitle.add("GALLERI");
+         listTitle.add("KAMERA");
+         listTitle.add("VÅRT TEAM");
+
         Log.d("jakob", "initData successful");
     }
 
@@ -42,13 +50,25 @@ public class StartMenuActivity extends AppCompatActivity {
     private void initHorizontalViewPager() {
         HorizontalInfiniteCycleViewPager pager = findViewById(R.id.horizontal_cycle);
         //onswipe YoYo shadow fade-in fade-out
-        MyAdapter adapter = new MyAdapter(listImages,getBaseContext());
+        MyAdapter adapter = new MyAdapter(listImages, listTitle,getBaseContext());
         pager.setAdapter(adapter);
+
+        count = adapter.getCount();
+        ;
     }
 
     public void onClick(View view) {
+
+        switch (count){
+            case 2:
         Intent bookingIntent = new Intent(StartMenuActivity.this, BookingActivity.class);
         startActivity(bookingIntent);
+        break;
+            case 3:
+        Intent behandlingarIntent = new Intent(StartMenuActivity.this,BehandlingarAcivity.class);
+        startActivity(behandlingarIntent);
+        break;
+        }
 
     }
 }
