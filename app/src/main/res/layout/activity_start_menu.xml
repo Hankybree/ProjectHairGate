@@ -19,6 +19,12 @@
         android:src="@drawable/shade"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/textView2"
+        android:layout_alignParentBottom="true"/>
 
 
     <com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager

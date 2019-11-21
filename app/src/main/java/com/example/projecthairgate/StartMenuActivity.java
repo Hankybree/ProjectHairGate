@@ -1,6 +1,9 @@
 package com.example.projecthairgate;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 
 import com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager;
 
@@ -29,13 +32,23 @@ public class StartMenuActivity extends AppCompatActivity {
          listImages.add(R.drawable.mainview_behandlingar);
          listImages.add(R.drawable.mainview_galleri);
          listImages.add(R.drawable.mainview_kamera);
-         listImages.add(R.drawable.mainview_team);
+         listImages.add(R.drawable.mainview_nyteam);
+
+        Log.d("jakob", "initData successful");
     }
+
+
 
     private void initHorizontalViewPager() {
         HorizontalInfiniteCycleViewPager pager = findViewById(R.id.horizontal_cycle);
         //onswipe YoYo shadow fade-in fade-out
         MyAdapter adapter = new MyAdapter(listImages,getBaseContext());
         pager.setAdapter(adapter);
+    }
+
+    public void onClick(View view) {
+        Intent bookingIntent = new Intent(StartMenuActivity.this, BookingActivity.class);
+        startActivity(bookingIntent);
+
     }
 }
