@@ -15,7 +15,6 @@ public class StartMenuActivity extends AppCompatActivity {
 
     List<Integer> listImages = new ArrayList<>();
     List<String> listTitle = new ArrayList<>();
-    private static int count;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
