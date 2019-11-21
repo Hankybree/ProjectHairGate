@@ -52,23 +52,6 @@ public class StartMenuActivity extends AppCompatActivity {
         //onswipe YoYo shadow fade-in fade-out
         MyAdapter adapter = new MyAdapter(listImages, listTitle,getBaseContext());
         pager.setAdapter(adapter);
-
-        count = adapter.getCount();
-        ;
     }
 
-    public void onClick(View view) {
-
-        switch (count){
-            case 2:
-        Intent bookingIntent = new Intent(StartMenuActivity.this, BookingActivity.class);
-        startActivity(bookingIntent);
-        break;
-            case 3:
-        Intent behandlingarIntent = new Intent(StartMenuActivity.this,BehandlingarAcivity.class);
-        startActivity(behandlingarIntent);
-        break;
-        }
-
-    }
 }
