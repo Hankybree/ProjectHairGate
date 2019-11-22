@@ -1,7 +1,11 @@
 package com.example.projecthairgate;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager;
@@ -51,5 +55,7 @@ public class StartMenuActivity extends AppCompatActivity {
         MyAdapter adapter = new MyAdapter(listImages, listTitle,getBaseContext());
         pager.setAdapter(adapter);
     }
+
+
 
 }
