@@ -1,6 +1,7 @@
 package com.example.projecthairgate;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,15 +60,40 @@ public class MyAdapter extends PagerAdapter {
         OnClick fixad. Skapa alla klasser, sen gör en lista med intents för att skicka till rätt med
         hjälp av position
         */
+
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "Clicked "+listTitle.get(position), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Clicked "+position, Toast.LENGTH_SHORT).show();
+                switch (position) {
+                    case 0:
+                        view.getContext().startActivity(new Intent(view.getContext(),BookingActivity.class));
+                        //int id = view.getId();
+                        break;
+                    case 1:
+                        view.getContext().startActivity(new Intent(view.getContext(),BehandlingarAcivity.class));
+                        break;
+                    case 2:
+                        view.getContext().startActivity(new Intent(view.getContext(),Gallery.class));
+                        break;
+                    case 3:
+                        view.getContext().startActivity(new Intent(view.getContext(),KameraActivity.class));
+                        break;
+                    case 4:
+                        view.getContext().startActivity(new Intent(view.getContext(),AboutActivity.class));
+                        break;
+                }
+
             }
         });
+
+
 
 
         container.addView(view);
         return view;
     }
+
+
+
 }
