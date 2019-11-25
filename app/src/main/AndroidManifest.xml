@@ -31,6 +31,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".BookingActivity" />
         <activity android:name=".AboutActivity" />
+        <activity android:name=".BehandlingarAcivity"/>
+        <activity android:name=".Gallery"/>
+        <activity android:name=".VartTeamActivity"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

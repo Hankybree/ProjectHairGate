@@ -80,6 +80,9 @@ public class MyAdapter extends PagerAdapter {
                         view.getContext().startActivity(new Intent(view.getContext(),KameraActivity.class));
                         break;
                     case 4:
+                        view.getContext().startActivity(new Intent(view.getContext(),VartTeamActivity.class));
+                        break;
+                    case 5:
                         view.getContext().startActivity(new Intent(view.getContext(),AboutActivity.class));
                         break;
                 }
