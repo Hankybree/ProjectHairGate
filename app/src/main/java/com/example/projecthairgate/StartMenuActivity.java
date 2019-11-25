@@ -37,12 +37,14 @@ public class StartMenuActivity extends AppCompatActivity {
          listImages.add(R.drawable.mainview_galleri);
          listImages.add(R.drawable.mainview_kamera);
          listImages.add(R.drawable.mainview_nyteam);
+         listImages.add(R.drawable.orginalbild_hemsidan);
 
          listTitle.add("BOKA TID");
          listTitle.add("BEHANDLINGAR");
          listTitle.add("GALLERI");
          listTitle.add("KAMERA");
          listTitle.add("VÅRT TEAM");
+         listTitle.add("KONTAKT");
 
         Log.d("jakob", "initData successful");
     }
