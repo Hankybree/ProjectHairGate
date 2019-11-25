@@ -8,6 +8,7 @@
     <color name="blue1">#00BCD4</color>
     <color name="font_aboutActivity">#000</color>
     <color name="colorGold">#d4af37</color>
+    <color name="colorGoldO45">#73d4af37</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBlack">#000000</color>
 </resources>
