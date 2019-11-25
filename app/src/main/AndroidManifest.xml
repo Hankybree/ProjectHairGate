@@ -31,7 +31,7 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
 
-        <activity android:name=".Galleries"></activity>
+
         <activity android:name=".KameraActivity"></activity>
         <activity
             android:name=".StartMenuActivity"
@@ -40,7 +40,7 @@
         <activity android:name=".BookingActivity" />
         <activity android:name=".AboutActivity" />
         <activity android:name=".BehandlingarAcivity"/>
-        <activity android:name=".Gallery"/>
+        <activity android:name=".GalleryActivity"/>
         <activity android:name=".VartTeamActivity"/>
         <activity android:name=".MainActivity">
             <intent-filter>
