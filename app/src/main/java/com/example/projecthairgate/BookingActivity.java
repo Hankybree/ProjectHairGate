@@ -3,7 +3,11 @@ package com.example.projecthairgate;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Bitmap;
+import android.net.Uri;
+import android.net.http.SslError;
 import android.os.Bundle;
+import android.webkit.SslErrorHandler;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
@@ -24,10 +28,11 @@ public class BookingActivity extends AppCompatActivity {
 
         String siteUrl = "https://boka.itsperfect.se/27022812";
         mWebView.loadUrl(siteUrl);
+        mWebView.getSettings().setAllowFileAccess(false);
         mWebView.getSettings().setJavaScriptEnabled(true);
-        mWebView.getSettings().setSupportZoom(true);
-        mWebView.getSettings().setBuiltInZoomControls(true);
-        mWebView.getSettings().setDisplayZoomControls(true);
+        mWebView.getSettings().setSupportZoom(false);
+        mWebView.getSettings().setBuiltInZoomControls(false);
+        mWebView.getSettings().setDefaultZoom(WebSettings.ZoomDensity.FAR);
         mWebView.setWebViewClient(new mWebViewClient());
     }
 
@@ -35,6 +40,9 @@ public class BookingActivity extends AppCompatActivity {
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            if (!Uri.parse(url).getHost().equals("https://boka.itsperfect.se/27022812")) {
+                return false;
+            }
             view.loadUrl(url);
             return true;
         }
@@ -43,12 +51,18 @@ public class BookingActivity extends AppCompatActivity {
 
             Toast.makeText(BookingActivity.this, "Loading page...", Toast.LENGTH_SHORT).show();
 
+
         }
 
         @Override
         public void onPageFinished(WebView view, String url) {
 
             Toast.makeText(BookingActivity.this, "Loading finished", Toast.LENGTH_SHORT).show();
+
+        }
+        @Override
+        public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+            super.onReceivedSslError(view, handler, error);
 
         }
     }
