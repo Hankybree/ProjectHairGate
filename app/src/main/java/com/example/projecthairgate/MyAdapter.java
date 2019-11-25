@@ -1,10 +1,13 @@
 package com.example.projecthairgate;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
@@ -14,14 +17,16 @@ import java.util.List;
 public class MyAdapter extends PagerAdapter {
 
     List<Integer> listImages;
+    List<String> listTitle;
     Context context;
     LayoutInflater layoutInflater;
 
-    public MyAdapter(List<Integer> listImages, Context context) {
+
+    public MyAdapter(List<Integer> listImages,List<String> listTitle, Context context) {
         this.listImages = listImages;
         this.context = context;
+        this.listTitle = listTitle;
         layoutInflater = LayoutInflater.from(context);
-
     }
 
     @Override
@@ -41,11 +46,54 @@ public class MyAdapter extends PagerAdapter {
 
     @NonNull
     @Override
-    public Object instantiateItem(@NonNull ViewGroup container, int position) {
+    public Object instantiateItem(@NonNull ViewGroup container, final int position) {
         View view = layoutInflater.inflate(R.layout.card_item,container,false);
-        ImageView imageView = view.findViewById(R.id.imageView);
-        imageView.setImageResource(listImages.get(position));
+
+        ImageButton imageButton = view.findViewById(R.id.imageButton);
+        TextView textView = view.findViewById(R.id.on_card_text);
+
+        //Sets image and title based on position
+        imageButton.setImageResource(listImages.get(position));
+        textView.setText(listTitle.get(position));
+
+        /*
+        OnClick fixad. Skapa alla klasser, sen gör en lista med intents för att skicka till rätt med
+        hjälp av position
+        */
+
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context, "Clicked "+position, Toast.LENGTH_SHORT).show();
+                switch (position) {
+                    case 0:
+                        view.getContext().startActivity(new Intent(view.getContext(),BookingActivity.class));
+                        //int id = view.getId();
+                        break;
+                    case 1:
+                        view.getContext().startActivity(new Intent(view.getContext(),BehandlingarAcivity.class));
+                        break;
+                    case 2:
+                        view.getContext().startActivity(new Intent(view.getContext(),Gallery.class));
+                        break;
+                    case 3:
+                        view.getContext().startActivity(new Intent(view.getContext(),KameraActivity.class));
+                        break;
+                    case 4:
+                        view.getContext().startActivity(new Intent(view.getContext(),AboutActivity.class));
+                        break;
+                }
+
+            }
+        });
+
+
+
+
         container.addView(view);
         return view;
     }
+
+
+
 }
