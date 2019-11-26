@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -25,6 +26,9 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.xml.datatype.Duration;
 
 
@@ -32,8 +36,9 @@ public class GalleryActivity extends AppCompatActivity {
 
     private FirebaseDatabase mRoot = FirebaseDatabase.getInstance();
     private DatabaseReference mRef = mRoot.getReference();
+    private String Image;
 
-    ImageView image1;
+    /*ImageView image1;
     ImageView image2;
     ImageView image3;
     ImageView image4;
@@ -44,11 +49,38 @@ public class GalleryActivity extends AppCompatActivity {
     ImageView image9;
     ImageView image10;
 
+     */
+
+    // Här börjar oleg
+
+    private RecyclerView staggeredRv;
+    private GalleryGridAdapter adapter;
+    private StaggeredGridLayoutManager manager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
 
+        staggeredRv = findViewById(R.id.staggerd_rv);
+        manager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+        staggeredRv.setLayoutManager(manager);
+
+
+        // arraylist av bilder här ska bilder från databasen läggas in
+        List<GalleryRows> images = new ArrayList<>();
+        images.add(new GalleryRows(R.drawable.bearded_man));
+        images.add(new GalleryRows(R.drawable.mainview_behandlingar));
+        images.add(new GalleryRows(R.drawable.mainview_team));
+        images.add(new GalleryRows(R.drawable.bearded_man));
+        images.add(new GalleryRows(R.drawable.mainview_kamera));
+        images.add(new GalleryRows(R.drawable.bearded_man));
+        
+
+        adapter = new GalleryGridAdapter(this,images);
+        staggeredRv.setAdapter(adapter);
+
+        /*
         image1 = findViewById(R.id.image_1);
         image2 = findViewById(R.id.image_2);
         image3 = findViewById(R.id.image_3);
@@ -59,10 +91,11 @@ public class GalleryActivity extends AppCompatActivity {
         image8 = findViewById(R.id.image_8);
         image9 = findViewById(R.id.image_9);
         image10 = findViewById(R.id.image_10);
+        */
 
 
 
-        LinearLayout layout = findViewById(R.id.linearLayout);
+       /* LinearLayout layout = findViewById(R.id.linearLayout);
         for(int i=0;i<10;i++)
         {
             ImageView image = new ImageView(this);
@@ -72,7 +105,7 @@ public class GalleryActivity extends AppCompatActivity {
 
             // Adds the view to the layout
             layout.addView(image);
-        }
+        }*/
 
     }
 
@@ -100,7 +133,7 @@ public class GalleryActivity extends AppCompatActivity {
             String URL10 = dataSnapshot.child("Image10").getValue(String.class);
 
 
-            Picasso.get().load(URL).into(image1);
+            /*Picasso.get().load(URL).into();
             Picasso.get().load(URL2).into(image2);
             Picasso.get().load(URL3).into(image3);
             Picasso.get().load(URL4).into(image4);
@@ -109,7 +142,9 @@ public class GalleryActivity extends AppCompatActivity {
             Picasso.get().load(URL7).into(image7);
             Picasso.get().load(URL8).into(image8);
             Picasso.get().load(URL9).into(image9);
-            Picasso.get().load(URL10).into(image10);
+            Picasso.get().load(URL10).into(image10);*/
+
+
 
 
                 Log.wtf("imageURL", "länk:"+ URL);
@@ -131,68 +166,6 @@ public class GalleryActivity extends AppCompatActivity {
         }
     });
 
-    }
-
-    /**
-     * An extension of RecyclerView, focused more on resembling a GridView.
-     * Unlike {@link android.support.v7.widget.RecyclerView}, this view can handle
-     * {@code <gridLayoutAnimation>} as long as you provide it a
-     * {@link android.support.v7.widget.GridLayoutManager} in
-     * {@code setLayoutManager(LayoutManager layout)}.
-     * <p/>
-     * Created by Freddie (Musenkishi) Lust-Hed.
-     */
-    public class GridRecyclerView extends RecyclerView {
-
-        public GridRecyclerView(Context context) {
-            super(context);
-        }
-
-        public GridRecyclerView(Context context, AttributeSet attrs) {
-            super(context, attrs);
-        }
-
-        public GridRecyclerView(Context context, AttributeSet attrs, int defStyle) {
-            super(context, attrs, defStyle);
-        }
-
-        @Override
-        public void setLayoutManager(LayoutManager layout) {
-            if (layout instanceof GridLayoutManager) {
-                super.setLayoutManager(layout);
-            } else {
-                throw new ClassCastException("You should only use a GridLayoutManager with GridRecyclerView.");
-            }
-        }
-
-        @Override
-        protected void attachLayoutAnimationParameters(View child, @NonNull ViewGroup.LayoutParams params, int index, int count) {
-
-            if (getAdapter() != null && getLayoutManager() instanceof GridLayoutManager) {
-
-                GridLayoutAnimationController.AnimationParameters animationParams =
-                        (GridLayoutAnimationController.AnimationParameters) params.layoutAnimationParameters;
-
-                if (animationParams == null) {
-                    animationParams = new GridLayoutAnimationController.AnimationParameters();
-                    params.layoutAnimationParameters = animationParams;
-                }
-
-                int columns = ((GridLayoutManager) getLayoutManager()).getSpanCount();
-
-                animationParams.count = count;
-                animationParams.index = index;
-                animationParams.columnsCount = columns;
-                animationParams.rowsCount = count / columns;
-
-                final int invertedIndex = count - 1 - index;
-                animationParams.column = columns - 1 - (invertedIndex % columns);
-                animationParams.row = animationParams.rowsCount - 1 - invertedIndex / columns;
-
-            } else {
-                super.attachLayoutAnimationParameters(child, params, index, count);
-            }
-        }
     }
 }
 

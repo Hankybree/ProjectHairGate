@@ -20,7 +20,7 @@
             android:textColor="@color/colorWhite"
             android:layout_gravity="bottom"
             style="@style/titeltxtvit"
-            android:background="@color/colorGoldO45"
+            android:background="@color/colorPrimaryO45"
 
             />
 
