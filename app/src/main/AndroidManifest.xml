@@ -9,6 +9,8 @@
     <meta-data
         android:name="com.google.android.gms.version"
         android:value="@integer/google_play_services_version" />
+
+
     <!--
     This notifies external services of the requirement. In particular,
     it prevents Google Play Store from displaying your app on devices that don't support OpenGL ES version 2.
@@ -24,6 +26,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
+
         <activity android:name=".KameraActivity"></activity>
         <activity
             android:name=".StartMenuActivity"
@@ -32,7 +40,7 @@
         <activity android:name=".BookingActivity" />
         <activity android:name=".AboutActivity" />
         <activity android:name=".BehandlingarAcivity"/>
-        <activity android:name=".Gallery"/>
+        <activity android:name=".GalleryActivity"/>
         <activity android:name=".VartTeamActivity"/>
         <activity android:name=".MainActivity">
             <intent-filter>
