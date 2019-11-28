@@ -216,6 +216,16 @@ public class GalleryActivity extends AppCompatActivity {
                     Uri.parse("http://instagram.com/harportenvarberg")));
         }
     }
+
+    public void onClickFb(View view) {
+        //Links to harportens facebook
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://profile/577574002374672"));
+            startActivity(intent);
+        } catch(Exception e) {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.facebook.com/harporten.varberg")));
+        }
+    }
 }
 
 

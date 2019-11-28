@@ -26,5 +26,17 @@
       android:background="?android:selectableItemBackground"
       android:onClick="onClick"/>
 
+  <ImageButton
+      android:id="@+id/facebook_button"
+      android:layout_width="50dp"
+      android:layout_height="50dp"
+      android:src="@drawable/facebook_logo"
+      android:layout_toStartOf="@id/instagram_button"
+      android:layout_toLeftOf="@id/instagram_button"
+      android:layout_alignParentBottom="true"
+      android:background="?android:selectableItemBackground"
+      android:onClick="onClickFb"
+      />
+
 
 </RelativeLayout>
