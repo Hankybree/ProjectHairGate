@@ -35,5 +35,11 @@
       android:background="?android:selectableItemBackground"
       android:onClick="onClickFb" />
 
+  <ImageView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerInParent="true"
+      android:id="@+id/test_view" />
+
 
 </RelativeLayout>

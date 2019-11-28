@@ -17,6 +17,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -41,8 +42,10 @@ public class GalleryActivity extends AppCompatActivity {
     private RecyclerView staggeredRv;
     private GalleryGridAdapter adapter;
     private StaggeredGridLayoutManager manager;
+    private List<GalleryRows> images;
 
-    List<GalleryRows> images;
+    // Testkod
+    ImageView iv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,9 @@ public class GalleryActivity extends AppCompatActivity {
         mRef = mRoot.getReference("Images");
 
         images = new ArrayList<>();
+
+        // Testkod
+        iv = findViewById(R.id.test_view);
     }
 
     @Override
@@ -93,6 +99,9 @@ public class GalleryActivity extends AppCompatActivity {
         if (requestCode == CAMERA_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 Bitmap image = BitmapFactory.decodeFile(picturePath);
+
+                // Testkod
+                iv.setImageBitmap(image);
 
                 // TODO face swap-code
             }
