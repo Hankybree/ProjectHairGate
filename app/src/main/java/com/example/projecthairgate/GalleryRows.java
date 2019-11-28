@@ -1,17 +1,21 @@
 package com.example.projecthairgate;
 
-public class GalleryRows {
-    private int img;
+import android.util.Log;
 
-    public GalleryRows(int img) {
+public class GalleryRows {
+
+    private String img;
+
+    public GalleryRows(String img) {
         this.img = img;
     }
 
-    public int getImg() {
+    public String getImg() {
+        Log.d("frank", "getImg: hämtas");
         return img;
     }
 
-    public void setImg(int img) {
+    public void setImg(String img) {
         this.img = img;
     }
 }

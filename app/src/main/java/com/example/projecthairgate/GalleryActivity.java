@@ -24,6 +24,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -34,8 +36,9 @@ import javax.xml.datatype.Duration;
 
 public class GalleryActivity extends AppCompatActivity {
 
-    private FirebaseDatabase mRoot = FirebaseDatabase.getInstance();
-    private DatabaseReference mRef = mRoot.getReference();
+    private FirebaseDatabase mRoot;
+    private DatabaseReference mRef;
+    private StorageReference storageRef;
     private String Image;
 
     /*ImageView image1;
@@ -57,6 +60,8 @@ public class GalleryActivity extends AppCompatActivity {
     private GalleryGridAdapter adapter;
     private StaggeredGridLayoutManager manager;
 
+    List<GalleryRows> images;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,18 +72,23 @@ public class GalleryActivity extends AppCompatActivity {
         staggeredRv.setLayoutManager(manager);
 
 
+        mRoot = FirebaseDatabase.getInstance();
+        mRef = mRoot.getReference("Images");
+
+        storageRef = FirebaseStorage.getInstance().getReference();
+
+
         // arraylist av bilder här ska bilder från databasen läggas in
-        List<GalleryRows> images = new ArrayList<>();
-        images.add(new GalleryRows(R.drawable.bearded_man));
+        images = new ArrayList<>();
+        /*images.add(new GalleryRows(R.drawable.bearded_man));
         images.add(new GalleryRows(R.drawable.mainview_behandlingar));
         images.add(new GalleryRows(R.drawable.mainview_team));
         images.add(new GalleryRows(R.drawable.bearded_man));
         images.add(new GalleryRows(R.drawable.mainview_kamera));
-        images.add(new GalleryRows(R.drawable.bearded_man));
-        
+        images.add(new GalleryRows(R.drawable.bearded_man));*/
 
-        adapter = new GalleryGridAdapter(this,images);
-        staggeredRv.setAdapter(adapter);
+        /*adapter = new GalleryGridAdapter(this,images);
+        staggeredRv.setAdapter(adapter);*/
 
         /*
         image1 = findViewById(R.id.image_1);
@@ -114,13 +124,22 @@ public class GalleryActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        Query query = mRef.child("Images");
+        //Query query = mRef.child("Images");
 
-        query.addValueEventListener(new ValueEventListener() {
+        mRef.addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
+            for(DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                String URL = postSnapshot.getValue(String.class);
+
+                images.add(new GalleryRows(URL));
+            }
+
+            adapter = new GalleryGridAdapter(getApplicationContext(),images);
+            staggeredRv.setAdapter(adapter);
+            /*
             String URL = dataSnapshot.child("Image1").getValue(String.class);
             String URL2 = dataSnapshot.child("Image2").getValue(String.class);
             String URL3 = dataSnapshot.child("Image3").getValue(String.class);
@@ -130,7 +149,7 @@ public class GalleryActivity extends AppCompatActivity {
             String URL7 = dataSnapshot.child("Image7").getValue(String.class);
             String URL8 = dataSnapshot.child("Image8").getValue(String.class);
             String URL9 = dataSnapshot.child("Image9").getValue(String.class);
-            String URL10 = dataSnapshot.child("Image10").getValue(String.class);
+            String URL10 = dataSnapshot.child("Image10").getValue(String.class);*/
 
 
             /*Picasso.get().load(URL).into();
@@ -147,7 +166,7 @@ public class GalleryActivity extends AppCompatActivity {
 
 
 
-                Log.wtf("imageURL", "länk:"+ URL);
+                /*Log.wtf("imageURL", "länk:"+ URL);
                 Log.wtf("imageURL", "länk2:"+ URL2);
                 Log.wtf("imageURL", "länk3:"+ URL3);
                 Log.wtf("imageURL", "länk4:"+ URL4);
@@ -156,7 +175,7 @@ public class GalleryActivity extends AppCompatActivity {
                 Log.wtf("imageURL", "länk7:"+ URL7);
                 Log.wtf("imageURL", "länk8:"+ URL8);
                 Log.wtf("imageURL", "länk9:"+ URL9);
-                Log.wtf("imageURL", "länk10:"+ URL10);
+                Log.wtf("imageURL", "länk10:"+ URL10);*/
 
         }
 
@@ -166,6 +185,18 @@ public class GalleryActivity extends AppCompatActivity {
         }
     });
 
+    }
+
+    private String getIndexName() {
+
+        String indexName;
+        int numberOfImages = 0;
+
+        numberOfImages++;
+
+        indexName = "Image" + numberOfImages;
+
+        return indexName;
     }
 }
 
