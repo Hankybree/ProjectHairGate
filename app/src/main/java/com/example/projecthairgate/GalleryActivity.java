@@ -6,7 +6,10 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -197,6 +200,21 @@ public class GalleryActivity extends AppCompatActivity {
         indexName = "Image" + numberOfImages;
 
         return indexName;
+    }
+
+    public void onClick(View view) {
+        //Links to harportens instagram
+        Uri uri = Uri.parse("http://instagram.com/_u/harportenvarberg");
+        Intent likeIng = new Intent(Intent.ACTION_VIEW, uri);
+
+        likeIng.setPackage("com.instagram.android");
+
+        try {
+            startActivity(likeIng);
+        } catch (ActivityNotFoundException e) {
+            startActivity(new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("http://instagram.com/harportenvarberg")));
+        }
     }
 }
 
