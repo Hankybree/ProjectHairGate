@@ -33,5 +33,5 @@
         app:icvp_max_page_scale="0.8"
         app:icvp_min_page_scale="0.55"
         app:icvp_medium_scaled="false" />
-    
+
     </RelativeLayout>

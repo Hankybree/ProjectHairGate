@@ -4,11 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Gallery">
+    android:orientation="vertical"
+    tools:context=".GalleryActivity"
+    android:id="@+id/linearLayout">
 
-    <ImageView
-        android:id="@+id/ImageHolder"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"/>
+  <androidx.recyclerview.widget.RecyclerView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:id="@+id/staggerd_rv"
+
+      />
+
+  <ImageButton
+      android:id="@+id/instagram_button"
+      android:layout_width="50dp"
+      android:layout_height="50dp"
+      android:src="@drawable/ic_instagram_logo"
+      android:layout_alignParentBottom="true"
+      android:layout_alignParentEnd="true"
+      android:layout_alignParentRight="true"
+      android:background="?android:selectableItemBackground"
+      android:onClick="onClick"/>
+
+  <ImageButton
+      android:id="@+id/facebook_button"
+      android:layout_width="50dp"
+      android:layout_height="50dp"
+      android:src="@drawable/facebook_logo"
+      android:layout_toStartOf="@id/instagram_button"
+      android:layout_toLeftOf="@id/instagram_button"
+      android:layout_alignParentBottom="true"
+      android:background="?android:selectableItemBackground"
+      android:onClick="onClickFb"
+      />
+
 
 </RelativeLayout>
