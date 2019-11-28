@@ -11,9 +11,7 @@
   <androidx.recyclerview.widget.RecyclerView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:id="@+id/staggerd_rv"
-
-      />
+      android:id="@+id/staggerd_rv" />
 
   <ImageButton
       android:id="@+id/instagram_button"
@@ -24,7 +22,7 @@
       android:layout_alignParentEnd="true"
       android:layout_alignParentRight="true"
       android:background="?android:selectableItemBackground"
-      android:onClick="onClick"/>
+      android:onClick="onClickIg"/>
 
   <ImageButton
       android:id="@+id/facebook_button"
@@ -35,8 +33,7 @@
       android:layout_toLeftOf="@id/instagram_button"
       android:layout_alignParentBottom="true"
       android:background="?android:selectableItemBackground"
-      android:onClick="onClickFb"
-      />
+      android:onClick="onClickFb" />
 
 
 </RelativeLayout>
