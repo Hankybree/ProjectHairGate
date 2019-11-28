@@ -20,11 +20,15 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.ListResult;
+import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.io.IOException;
@@ -43,6 +47,9 @@ public class GalleryActivity extends AppCompatActivity {
     private GalleryGridAdapter adapter;
     private StaggeredGridLayoutManager manager;
     private List<GalleryRows> images;
+
+    StorageReference storage;
+    long maxDownloadSize = 1024 * 1024;
 
     // Testkod
     ImageView iv;
@@ -63,6 +70,18 @@ public class GalleryActivity extends AppCompatActivity {
 
         // Testkod
         iv = findViewById(R.id.test_view);
+
+        StorageReference storage = FirebaseStorage.getInstance().getReference();
+        storage.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
+            @Override
+            public void onSuccess(ListResult listResult) {
+                listResult.getItems().size();
+
+                for(int i = 0; i < listResult.getItems().size(); i++) {
+                    listResult.getItems().get(i).getBytes(maxDownloadSize);
+                }
+            }
+        });
     }
 
     @Override
