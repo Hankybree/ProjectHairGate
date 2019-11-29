@@ -15,4 +15,31 @@
     <string name="maps">Hitta hit</string>
     <string name="Map_info">Om ni klickar på den röda taggen så kan vägbeskrivning ges genom att klicka på den vänstra knappen som dyker upp i högra hörnet, den leder er då till google maps </string>
     <string name="API_Google_Maps">AIzaSyCb6iWCOa8MI86yWAX7p8HEDV6_QFSuYAw</string>
+    <string name="klippning">Klippning
+Klippning + tvätt
+Luggklipp
+Klippning 0-6 år
+Klippning 7-12 år
+Maskinklipp
+Klippning + 1 färg
+Klippning + 2 färger
+Klippning + 3 färger
+        Foliesling+Klipp
+    Foliesling 2 färg+klipp
+    Foliesling 3 färg+klipp
+    Balayage
+    Balayage+klipp
+    Balayage+nyansering
+    Balayage+nyansering+klipp
+</string>
+    <string name="beard_price">
+        Klassisk rakning med varma handdukar
+Klippning+ rakning
+Rakning huvud
+klippning skägg och rakning
+
+        520:-
+        850:-
+        460:-
+        480:-</string>
 </resources>
