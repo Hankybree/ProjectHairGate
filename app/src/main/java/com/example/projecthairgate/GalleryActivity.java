@@ -20,7 +20,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -47,12 +53,12 @@ public class GalleryActivity extends AppCompatActivity {
     private GalleryGridAdapter adapter;
     private StaggeredGridLayoutManager manager;
     private List<GalleryRows> images;
+    boolean imageAlreadyExists;
 
-    StorageReference storage;
-    long maxDownloadSize = 1024 * 1024;
-
-    // Testkod
-    ImageView iv;
+    private FirebaseStorage storage;
+    private StorageReference storageRef;
+    private ArrayList<Bitmap> galleryBitmaps;
+    private final long ONE_MEGABYTE = 1024 * 1024 * 13;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,22 +72,11 @@ public class GalleryActivity extends AppCompatActivity {
         mRoot = FirebaseDatabase.getInstance();
         mRef = mRoot.getReference("Images");
 
+        storage = FirebaseStorage.getInstance();
+        storageRef = storage.getReference().child("images");
+        galleryBitmaps = new ArrayList<>();
+
         images = new ArrayList<>();
-
-        // Testkod
-        iv = findViewById(R.id.test_view);
-
-        StorageReference storage = FirebaseStorage.getInstance().getReference();
-        storage.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
-            @Override
-            public void onSuccess(ListResult listResult) {
-                listResult.getItems().size();
-
-                for(int i = 0; i < listResult.getItems().size(); i++) {
-                    listResult.getItems().get(i).getBytes(maxDownloadSize);
-                }
-            }
-        });
     }
 
     @Override
@@ -94,9 +89,20 @@ public class GalleryActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
             for(DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+
+                imageAlreadyExists = false;
+
                 String URL = postSnapshot.getValue(String.class);
 
-                images.add(new GalleryRows(URL));
+                for (int i = 0; i < images.size(); i++) {
+                    if (images.get(i).getImg().equals(URL)) {
+                        imageAlreadyExists = true;
+                    }
+                }
+
+                if (!imageAlreadyExists) {
+                    images.add(new GalleryRows(URL));
+                }
             }
 
             adapter = new GalleryGridAdapter(getApplicationContext(),images);
@@ -119,10 +125,13 @@ public class GalleryActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 Bitmap image = BitmapFactory.decodeFile(picturePath);
 
-                // Testkod
-                iv.setImageBitmap(image);
+                setGalleryBitmaps();
 
                 // TODO face swap-code
+
+                // TODO send new gallery to sqlite db
+
+                // TODO load images from sqlite db
             }
         }
     }
@@ -187,6 +196,33 @@ public class GalleryActivity extends AppCompatActivity {
         picturePath = image.getAbsolutePath();
 
         return image;
+    }
+
+    private void setGalleryBitmaps() {
+
+        storageRef.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
+
+            @Override
+            public void onSuccess(ListResult listResult) {
+
+                for(int i = 0; i < listResult.getItems().size(); i++) {
+                    listResult.getItems().get(i).getBytes(ONE_MEGABYTE)
+                            .addOnSuccessListener(new OnSuccessListener<byte[]>() {
+
+                                @Override
+                                public void onSuccess(byte[] bytes) {
+
+                                    galleryBitmaps.add(BitmapFactory.decodeByteArray(bytes,0,bytes.length));
+                                    Log.d("frank", "Bitmaps size is: " + galleryBitmaps.size());
+                                }
+                            }).addOnCompleteListener(new OnCompleteListener<byte[]>() {
+                        @Override
+                        public void onComplete(@NonNull Task<byte[]> task) {
+                        }
+                    });
+                }
+            }
+        });
     }
 
     public void onClickIg(View view) {
