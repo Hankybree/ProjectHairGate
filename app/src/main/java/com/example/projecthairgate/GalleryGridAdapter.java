@@ -52,4 +52,6 @@ public class GalleryGridAdapter extends RecyclerView.Adapter<GalleryGridAdapter.
             img = itemView.findViewById(R.id.row_img);
         }
     }
+
+
 }
