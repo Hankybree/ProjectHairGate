@@ -4,7 +4,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +19,9 @@ public class GalleryGridAdapter extends RecyclerView.Adapter<GalleryGridAdapter.
 
     Context mContext;
     List<GalleryRows> mData;
+    ImageView selectedImage;
+    ImageView choosenImage;
+    private int positionOfDbPics;
 
     public GalleryGridAdapter(Context mContext, List<GalleryRows> mData) {
         this.mContext = mContext;
@@ -33,10 +38,28 @@ public class GalleryGridAdapter extends RecyclerView.Adapter<GalleryGridAdapter.
 
 
     @Override
-    public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ImageViewHolder holder, final int position) {
 
         Picasso.get().load(mData.get(position).getImg()).into(holder.img);
 
+            // Väljer en image ur recyclerviewen (För att kunna använda vid faceswap)
+            selectedImage = holder.itemView.findViewById(R.id.row_img);
+
+            selectedImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(mContext, "Selected " + position, Toast.LENGTH_SHORT).show();
+                    positionOfDbPics = position;
+
+                    /* Fixa så att klickad bild visas i en imageview ovanpå recyclerviewen
+                    med en kryss ikon för att stänga ner bilden och välja igen, samt en fotoikon för
+                    att genomföra faceswap med den valda bilden.
+                     */
+                }
+            });
+    }
+    public int getPositionOfDbPics() {
+        return positionOfDbPics;
     }
 
     @Override
@@ -52,4 +75,6 @@ public class GalleryGridAdapter extends RecyclerView.Adapter<GalleryGridAdapter.
             img = itemView.findViewById(R.id.row_img);
         }
     }
+
+
 }
