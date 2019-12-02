@@ -49,23 +49,18 @@ public class FaceSwap {
     FirebaseVisionFaceDetector faceDetector;
 
     ImageView iv;
+    ProgressBar pb;
 
-    public FaceSwap(Bitmap faceImg, Bitmap faceImg2, ImageView iv) {
+    public FaceSwap(Bitmap faceImg, Bitmap faceImg2, ImageView iv, ProgressBar pb) {
 
         this.iv = iv;
+        this.pb = pb;
 
         this.faceImg = faceImg;
         faceVsnImg = FirebaseVisionImage.fromBitmap(faceImg);
 
-        Log.d("frank", "faceImg: " + this.faceImg);
-        Log.d("frank", "faceVsnImg: " + faceVsnImg);
-
-
         this.faceImg2 = faceImg2;
         faceVsnImg2 = FirebaseVisionImage.fromBitmap(faceImg2);
-
-        Log.d("frank", "faceImg2: " + this.faceImg2);
-        Log.d("frank", "faceVsnImg2: " + faceVsnImg2);
 
         faceDetector = createDetector();
     }
@@ -98,16 +93,9 @@ public class FaceSwap {
             return;
         }
 
-        Log.d("frank", "face: " + firebaseVisionFaces);
-        Log.d("frank", "mutable: " + mutableImage);
-
         pointsFace1 = null;
         for (int i = 0; i < firebaseVisionFaces.size(); i++) {
             pointsFace1 = firebaseVisionFaces.get(i).getContour(FirebaseVisionFaceContour.FACE).getPoints();
-        }
-
-        for (int i = 0; i < pointsFace1.size(); i++) {
-            Log.d("frank", "pointsFace1: " + pointsFace1.get(i).getX());
         }
 
         Canvas canvas = new Canvas(mutableImage);
@@ -322,9 +310,7 @@ public class FaceSwap {
         canvas.drawBitmap(finalImage, leftX, topY, null);
 
         iv.setImageBitmap(mutable);
-    }
 
-    public Bitmap getFinalImage() {
-        return finalImage;
+        pb.setVisibility(View.INVISIBLE);
     }
 }

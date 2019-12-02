@@ -8,9 +8,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.hardware.Camera;
+import android.hardware.camera2.CameraAccessException;
+import android.hardware.camera2.CameraCharacteristics;
+import android.hardware.camera2.CameraManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -18,6 +24,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -39,7 +46,7 @@ public class GalleryActivity extends AppCompatActivity {
 
     public final int CAMERA_REQUEST_CODE = 1;
     private String picturePath;
-    private Bitmap photoTaken;
+    private Bitmap faceToSwap;
 
     private FirebaseDatabase mRoot;
     private DatabaseReference mRef;
@@ -55,7 +62,8 @@ public class GalleryActivity extends AppCompatActivity {
     private ArrayList<Bitmap> galleryBitmaps;
     private final long ONE_MEGABYTE = 1024 * 1024 * 13;
 
-    ImageView iv;
+    private ImageView iv;
+    private ProgressBar pb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +84,7 @@ public class GalleryActivity extends AppCompatActivity {
         images = new ArrayList<>();
 
         iv = findViewById(R.id.test_view);
+        pb = findViewById(R.id.face_swap_pb);
     }
 
     @Override
@@ -87,32 +96,32 @@ public class GalleryActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-            for(DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
 
-                imageAlreadyExists = false;
+                    imageAlreadyExists = false;
 
-                String URL = postSnapshot.getValue(String.class);
+                    String URL = postSnapshot.getValue(String.class);
 
-                for (int i = 0; i < images.size(); i++) {
-                    if (images.get(i).getImg().equals(URL)) {
-                        imageAlreadyExists = true;
+                    for (int i = 0; i < images.size(); i++) {
+                        if (images.get(i).getImg().equals(URL)) {
+                            imageAlreadyExists = true;
+                        }
+                    }
+
+                    if (!imageAlreadyExists) {
+                        images.add(new GalleryRows(URL));
                     }
                 }
 
-                if (!imageAlreadyExists) {
-                    images.add(new GalleryRows(URL));
-                }
+                adapter = new GalleryGridAdapter(getApplicationContext(), images);
+                staggeredRv.setAdapter(adapter);
             }
 
-            adapter = new GalleryGridAdapter(getApplicationContext(),images);
-            staggeredRv.setAdapter(adapter);
-        }
-
-        @Override
-        public void onCancelled(@NonNull DatabaseError databaseError) {
-            Log.wtf("onCancelledError", "fel vid läsning av bilder");
-        }
-    });
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.wtf("onCancelledError", "fel vid läsning av bilder");
+            }
+        });
 
     }
 
@@ -122,10 +131,16 @@ public class GalleryActivity extends AppCompatActivity {
 
         if (requestCode == CAMERA_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-                photoTaken = BitmapFactory.decodeFile(picturePath);
 
-                //iv.setImageBitmap(photoTaken);
-                //photoTaken = BitmapFactory.decodeResource(getResources(), R.drawable.mainview_bokatid);
+                Bitmap photoTaken = BitmapFactory.decodeFile(picturePath);
+
+                Matrix matrix = new Matrix();
+
+                matrix.setRotate(-90);
+
+                faceToSwap = Bitmap.createBitmap(photoTaken, 0, 0, photoTaken.getWidth(), photoTaken.getHeight(), matrix, false);
+
+                pb.setVisibility(View.VISIBLE);
 
                 generateFaceSwappedImage();
 
@@ -193,7 +208,7 @@ public class GalleryActivity extends AppCompatActivity {
         }
 
         // Create the image file
-        image = File.createTempFile("hairstyle", ".jpg", imageDir);
+        image = File.createTempFile("hairstyle", ".png", imageDir);
 
         picturePath = image.getAbsolutePath();
 
@@ -218,7 +233,7 @@ public class GalleryActivity extends AppCompatActivity {
 
                                     galleryBitmaps.add(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
 
-                                    FaceSwap faceSwap = new FaceSwap(photoTaken, galleryBitmaps.get(0), iv);
+                                    FaceSwap faceSwap = new FaceSwap(faceToSwap, galleryBitmaps.get(0), iv, pb);
                                     faceSwap.runFaceDetector();
                                 }
                             });
