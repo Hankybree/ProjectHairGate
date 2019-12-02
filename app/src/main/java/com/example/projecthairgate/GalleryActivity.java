@@ -20,9 +20,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -41,6 +39,7 @@ public class GalleryActivity extends AppCompatActivity {
 
     public final int CAMERA_REQUEST_CODE = 1;
     private String picturePath;
+    private Bitmap photoTaken;
 
     private FirebaseDatabase mRoot;
     private DatabaseReference mRef;
@@ -76,7 +75,7 @@ public class GalleryActivity extends AppCompatActivity {
 
         images = new ArrayList<>();
 
-        ImageView iv = findViewById(R.id.test_view);
+        iv = findViewById(R.id.test_view);
     }
 
     @Override
@@ -123,9 +122,12 @@ public class GalleryActivity extends AppCompatActivity {
 
         if (requestCode == CAMERA_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-                Bitmap image = BitmapFactory.decodeFile(picturePath);
+                photoTaken = BitmapFactory.decodeFile(picturePath);
 
-                generateFaceSwappedGallery(image);
+                //iv.setImageBitmap(photoTaken);
+                //photoTaken = BitmapFactory.decodeResource(getResources(), R.drawable.mainview_bokatid);
+
+                generateFaceSwappedImage();
 
                 // TODO face swap-code
 
@@ -198,7 +200,7 @@ public class GalleryActivity extends AppCompatActivity {
         return image;
     }
 
-    private void generateFaceSwappedGallery(final Bitmap photoTaken) {
+    private void generateFaceSwappedImage() {
 
         storageRef.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
 
@@ -215,7 +217,7 @@ public class GalleryActivity extends AppCompatActivity {
                                     galleryBitmaps.add(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
 
                                     FaceSwap faceSwap = new FaceSwap(photoTaken, galleryBitmaps.get(0), iv);
-                                    faceSwap.detectFace();
+                                    faceSwap.runFaceDetector();
                                 }
                             });
                 }
