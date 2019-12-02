@@ -217,10 +217,12 @@ public class GalleryActivity extends AppCompatActivity {
 
     private void generateFaceSwappedImage() {
 
+        final int selectedImagePos = adapter.getPositionOfDbPics();
         storageRef.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
 
             @Override
             public void onSuccess(ListResult listResult) {
+
 
                 for (int i = 0; i < listResult.getItems().size(); i++) {
                     listResult.getItems().get(i).getBytes(ONE_MEGABYTE)
