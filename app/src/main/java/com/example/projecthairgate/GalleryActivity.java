@@ -60,7 +60,7 @@ public class GalleryActivity extends AppCompatActivity {
     private FirebaseStorage storage;
     private StorageReference storageRef;
     private ArrayList<Bitmap> galleryBitmaps;
-    private final long ONE_MEGABYTE = 1024 * 1024 * 13;
+    private final long ONE_MEGABYTE = 1024 * 1024;
 
     private ImageView iv;
     private ProgressBar pb;
