@@ -21,12 +21,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -60,6 +56,8 @@ public class GalleryActivity extends AppCompatActivity {
     private ArrayList<Bitmap> galleryBitmaps;
     private final long ONE_MEGABYTE = 1024 * 1024 * 13;
 
+    ImageView iv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +75,8 @@ public class GalleryActivity extends AppCompatActivity {
         galleryBitmaps = new ArrayList<>();
 
         images = new ArrayList<>();
+
+        ImageView iv = findViewById(R.id.test_view);
     }
 
     @Override
@@ -125,7 +125,7 @@ public class GalleryActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 Bitmap image = BitmapFactory.decodeFile(picturePath);
 
-                setGalleryBitmaps();
+                generateFaceSwappedGallery(image);
 
                 // TODO face swap-code
 
@@ -198,28 +198,26 @@ public class GalleryActivity extends AppCompatActivity {
         return image;
     }
 
-    private void setGalleryBitmaps() {
+    private void generateFaceSwappedGallery(final Bitmap photoTaken) {
 
         storageRef.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
 
             @Override
             public void onSuccess(ListResult listResult) {
 
-                for(int i = 0; i < listResult.getItems().size(); i++) {
+                for (int i = 0; i < listResult.getItems().size(); i++) {
                     listResult.getItems().get(i).getBytes(ONE_MEGABYTE)
                             .addOnSuccessListener(new OnSuccessListener<byte[]>() {
 
                                 @Override
                                 public void onSuccess(byte[] bytes) {
 
-                                    galleryBitmaps.add(BitmapFactory.decodeByteArray(bytes,0,bytes.length));
-                                    Log.d("frank", "Bitmaps size is: " + galleryBitmaps.size());
+                                    galleryBitmaps.add(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
+
+                                    FaceSwap faceSwap = new FaceSwap(photoTaken, galleryBitmaps.get(0), iv);
+                                    faceSwap.detectFace();
                                 }
-                            }).addOnCompleteListener(new OnCompleteListener<byte[]>() {
-                        @Override
-                        public void onComplete(@NonNull Task<byte[]> task) {
-                        }
-                    });
+                            });
                 }
             }
         });
