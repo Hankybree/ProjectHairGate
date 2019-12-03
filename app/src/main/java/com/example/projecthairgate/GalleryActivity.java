@@ -90,7 +90,7 @@ public class GalleryActivity extends AppCompatActivity {
         iv = findViewById(R.id.test_view);
         pb = findViewById(R.id.face_swap_pb);
 
-        dbHelper = new DatabaseHelper(this, "db",null,1);
+        dbHelper = new DatabaseHelper(this);
 
         storageRef.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
 
@@ -242,28 +242,6 @@ public class GalleryActivity extends AppCompatActivity {
     }
 
     private void generateFaceSwappedImage() {
-        /*storageRef.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
-
-            @Override
-            public void onSuccess(ListResult listResult) {
-
-
-                for (int i = 0; i < listResult.getItems().size(); i++) {
-                    listResult.getItems().get(i).getBytes(ONE_MEGABYTE)
-                            .addOnSuccessListener(new OnSuccessListener<byte[]>() {
-
-                                @Override
-                                public void onSuccess(byte[] bytes) {
-
-                                    galleryBitmaps.add(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
-
-                                    FaceSwap faceSwap = new FaceSwap(faceToSwap, galleryBitmaps.get(selectedImagePos), iv, pb);
-                                    faceSwap.runFaceDetector();
-                                }
-                            });
-                }
-            }
-        });*/
 
         selectedImagePos = adapter.getPositionOfDbPics();
 

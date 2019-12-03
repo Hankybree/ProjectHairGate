@@ -59,7 +59,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
     public Cursor getContent() {
-        SQLiteDatabase db = this .getWritableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase();
         Cursor data = db.rawQuery("SELECT FACE_IMAGE FROM " + TABLE_NAME,null);
         return data;
     }
