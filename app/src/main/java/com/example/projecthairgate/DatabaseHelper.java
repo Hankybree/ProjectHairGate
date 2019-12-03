@@ -58,6 +58,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
         }
     }
+
+    public void dropTable(SQLiteDatabase db){
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+    }
+    
     public Cursor getContent() {
         SQLiteDatabase db = this .getWritableDatabase();
         Cursor data = db.rawQuery("SELECT FACE_IMAGE FROM " + TABLE_NAME,null);
