@@ -71,7 +71,7 @@ public class GalleryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_gallery);
 
         staggeredRv = findViewById(R.id.staggerd_rv);
-        manager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+        manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         staggeredRv.setLayoutManager(manager);
 
         mRoot = FirebaseDatabase.getInstance();
@@ -85,6 +85,26 @@ public class GalleryActivity extends AppCompatActivity {
 
         iv = findViewById(R.id.test_view);
         pb = findViewById(R.id.face_swap_pb);
+
+        storageRef.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
+
+            @Override
+            public void onSuccess(ListResult listResult) {
+
+
+                for (int i = 0; i < listResult.getItems().size(); i++) {
+                    listResult.getItems().get(i).getBytes(ONE_MEGABYTE)
+                            .addOnSuccessListener(new OnSuccessListener<byte[]>() {
+
+                                @Override
+                                public void onSuccess(byte[] bytes) {
+
+                                    galleryBitmaps.add(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
+                                }
+                            });
+                }
+            }
+        });
     }
 
     @Override
@@ -218,7 +238,7 @@ public class GalleryActivity extends AppCompatActivity {
     private void generateFaceSwappedImage() {
 
         final int selectedImagePos = adapter.getPositionOfDbPics();
-        storageRef.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
+        /*storageRef.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
 
             @Override
             public void onSuccess(ListResult listResult) {
@@ -233,13 +253,16 @@ public class GalleryActivity extends AppCompatActivity {
 
                                     galleryBitmaps.add(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
 
-                                    FaceSwap faceSwap = new FaceSwap(faceToSwap, galleryBitmaps.get(0), iv, pb);
+                                    FaceSwap faceSwap = new FaceSwap(faceToSwap, galleryBitmaps.get(selectedImagePos), iv, pb);
                                     faceSwap.runFaceDetector();
                                 }
                             });
                 }
             }
-        });
+        });*/
+
+        FaceSwap faceSwap = new FaceSwap(faceToSwap, galleryBitmaps.get(selectedImagePos), iv, pb);
+        faceSwap.runFaceDetector();
     }
 
     public void onClickIg(View view) {
