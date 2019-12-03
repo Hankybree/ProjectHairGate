@@ -251,7 +251,7 @@ public class GalleryActivity extends AppCompatActivity {
 
     public void onClickFaceSwapStoredImage(View view) {
 
-        byte[] bytes = dbHelper.getContent().getBlob(2);
+        byte[] bytes = dbHelper.getContent();
 
         FaceSwap faceSwap = new FaceSwap(bytes, galleryBitmaps.get(selectedImagePos), iv, pb);
         faceSwap.runDetectorWithStoredImage();

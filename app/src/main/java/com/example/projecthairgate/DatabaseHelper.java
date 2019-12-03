@@ -44,7 +44,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL2, item);
-        //db.replace(TABLE_NAME,null,contentValues);
 
         long result = db.insert(TABLE_NAME,null,contentValues);
 
@@ -63,9 +62,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
     }
 
-    public Cursor getContent() {
+    public byte[] getContent() {
+
+        byte[] imageBytes = null;
+
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor data = db.rawQuery("SELECT FACE_IMAGE FROM " + TABLE_NAME,null);
-        return data;
+        Log.d("frank", "Columnindex " + data.getColumnIndex(COL2));
+
+        while(data.moveToNext()) {
+            if (data != null) {
+                imageBytes = data.getBlob(1);
+            }
+        }
+
+        data.close();
+
+        return imageBytes;
     }
 }
