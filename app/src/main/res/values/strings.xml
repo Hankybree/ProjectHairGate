@@ -15,6 +15,7 @@
     <string name="maps">Hitta hit</string>
     <string name="Map_info">Om ni klickar på den röda taggen så kan vägbeskrivning ges genom att klicka på den vänstra knappen som dyker upp i högra hörnet, den leder er då till google maps </string>
     <string name="API_Google_Maps">AIzaSyCb6iWCOa8MI86yWAX7p8HEDV6_QFSuYAw</string>
+    <string name="prova_frisyr_med_kamera">Prova frisyr med kamera</string>
     <string name="klippning">Klippning
 Klippning + tvätt
 Luggklipp
