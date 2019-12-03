@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteStatement;
 import android.graphics.Bitmap;
 import android.util.Log;
 
@@ -43,8 +44,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL2, item);
-        db.replace(TABLE_NAME,null,contentValues);
-
+        //db.replace(TABLE_NAME,null,contentValues);
 
         long result = db.insert(TABLE_NAME,null,contentValues);
 
