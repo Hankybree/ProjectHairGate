@@ -25,7 +25,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTable = "CREATE TABLE " + TABLE_NAME + " (ID INTEGER PRIMARY KEY, " +
+        String createTable = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (ID INTEGER PRIMARY KEY, " +
                 "FACE_IMAGE BLOB) ";
         db.execSQL(createTable);
 
@@ -59,7 +59,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
     public Cursor getContent() {
         SQLiteDatabase db = this .getWritableDatabase();
-        Cursor data = db.rawQuery("SELECT * FROM " + TABLE_NAME,null);
+        Cursor data = db.rawQuery("SELECT FACE_IMAGE FROM " + TABLE_NAME,null);
         return data;
     }
 }

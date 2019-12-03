@@ -62,8 +62,12 @@ public class GalleryActivity extends AppCompatActivity {
     private ArrayList<Bitmap> galleryBitmaps;
     private final long ONE_MEGABYTE = 1024 * 1024;
 
+    int selectedImagePos;
+
     private ImageView iv;
     private ProgressBar pb;
+
+    DatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +89,8 @@ public class GalleryActivity extends AppCompatActivity {
 
         iv = findViewById(R.id.test_view);
         pb = findViewById(R.id.face_swap_pb);
+
+        dbHelper = new DatabaseHelper(this, "db",null,1);
 
         storageRef.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
 
@@ -236,8 +242,6 @@ public class GalleryActivity extends AppCompatActivity {
     }
 
     private void generateFaceSwappedImage() {
-
-        final int selectedImagePos = adapter.getPositionOfDbPics();
         /*storageRef.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
 
             @Override
@@ -261,8 +265,18 @@ public class GalleryActivity extends AppCompatActivity {
             }
         });*/
 
-        FaceSwap faceSwap = new FaceSwap(faceToSwap, galleryBitmaps.get(selectedImagePos), iv, pb);
+        selectedImagePos = adapter.getPositionOfDbPics();
+
+        FaceSwap faceSwap = new FaceSwap(faceToSwap, galleryBitmaps.get(selectedImagePos), iv, pb, dbHelper);
         faceSwap.runFaceDetector();
+    }
+
+    public void onClickFaceSwapStoredImage(View view) {
+
+        byte[] bytes = dbHelper.getContent().getBlob(2);
+
+        FaceSwap faceSwap = new FaceSwap(bytes, galleryBitmaps.get(selectedImagePos), iv, pb);
+        faceSwap.runDetectorWithStoredImage();
     }
 
     public void onClickIg(View view) {
