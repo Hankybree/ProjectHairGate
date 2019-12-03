@@ -74,7 +74,7 @@ public class FaceSwap {
         this.pb = pb;
 
         this.croppedImage = BitmapFactory.decodeByteArray(storedFace, 0, storedFace.length);
-        faceVsnImg = FirebaseVisionImage.fromBitmap(faceImg);
+        //faceVsnImg = FirebaseVisionImage.fromBitmap(faceImg);
 
         this.faceImg2 = faceImg2;
         faceVsnImg2 = FirebaseVisionImage.fromBitmap(faceImg2);
@@ -313,10 +313,6 @@ public class FaceSwap {
         List<FirebaseVisionPoint> points = null;
         for (int i = 0; i < firebaseVisionFaces.size(); i++) {
             points = firebaseVisionFaces.get(i).getContour(FirebaseVisionFaceContour.FACE).getPoints();
-        }
-
-        for (int i = 0; i < points.size(); i++) {
-            Log.d("frank", "pointsFace2: " + points.get(i).getX());
         }
 
         float leftX = getLeftmostX(points);

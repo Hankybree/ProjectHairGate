@@ -18,6 +18,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String TABLE_NAME = "saved_face";
     public static final String COL1 = "ID";
     public static final String COL2 = "FACE_IMAGE";
+    public static final byte[] TEMP = null;
 
 
     public DatabaseHelper(Context context) {
@@ -29,8 +30,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String createTable = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (ID INTEGER PRIMARY KEY, " +
                 "FACE_IMAGE BLOB) ";
+
         db.execSQL(createTable);
 
+        /*ContentValues contentValues = new ContentValues();
+        contentValues.put(COL2, TEMP);
+
+        long result = db.insert(TABLE_NAME, null, contentValues);*/
 
     }
 
@@ -41,21 +47,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public boolean addData(byte[] item) {
+
         SQLiteDatabase db = this.getWritableDatabase();
+
+        /*ContentValues contentValues = new ContentValues();
+        contentValues.put(COL2, item);
+
+        int result = db.update(TABLE_NAME, contentValues, COL2, null);
+
+        if (result == -1) {
+            Log.d(TAG, "addData: failed");
+            return false;
+
+        } else {
+            Log.d(TAG, "addData: successfully added data");
+            return true;
+        }*/
+
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL2, item);
 
-        long result = db.insert(TABLE_NAME,null,contentValues);
+        long result = db.insert(TABLE_NAME, null, contentValues);
 
-        if(result == -1){
+        if (result == -1) {
             Log.d(TAG, "addData: failed");
             return false;
-            
-        }
-        else{
+
+        } else {
             Log.d(TAG, "addData: successfully added data");
             return true;
         }
+
     }
 
     public void dropTable(SQLiteDatabase db){
@@ -70,11 +92,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor data = db.rawQuery("SELECT FACE_IMAGE FROM " + TABLE_NAME,null);
         Log.d("frank", "Columnindex " + data.getColumnIndex(COL2));
 
-        while(data.moveToNext()) {
-            if (data != null) {
-                imageBytes = data.getBlob(1);
-            }
-        }
+        data.moveToNext();
+        imageBytes = data.getBlob(0);
 
         data.close();
 

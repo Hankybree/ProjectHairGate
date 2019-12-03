@@ -253,6 +253,8 @@ public class GalleryActivity extends AppCompatActivity {
 
         byte[] bytes = dbHelper.getContent();
 
+        Log.d("frank", "Byte array " + bytes.toString());
+
         FaceSwap faceSwap = new FaceSwap(bytes, galleryBitmaps.get(selectedImagePos), iv, pb);
         faceSwap.runDetectorWithStoredImage();
     }
