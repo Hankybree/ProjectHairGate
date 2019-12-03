@@ -19,9 +19,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COL2 = "FACE_IMAGE";
 
 
-    public DatabaseHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+    public DatabaseHelper(Context context) {
+        super(context, DATABASE_NAME, null, 1);
     }
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {
