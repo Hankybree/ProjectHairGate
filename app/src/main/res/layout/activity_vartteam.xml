@@ -14,12 +14,14 @@
         android:text="Vårt Team"/>
 
     <ImageView
+        android:id="@+id/linn"
         android:padding="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/linn"/>
 
-    <ImageView
+    <ImageButton
+        android:id="@+id/lars"
         android:padding="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
