@@ -35,11 +35,30 @@
       android:background="?android:selectableItemBackground"
       android:onClick="onClickFb" />
 
-  <ImageView
+  <RelativeLayout
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_centerInParent="true"
-      android:id="@+id/test_view" />
+      android:layout_centerInParent="true">
+      <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:id="@+id/test_view"
+        />
+      <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/toss_pic_button"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        />
+       <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/swap_face_button"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"/>
+  </RelativeLayout>
 
   <ProgressBar
       android:id="@+id/face_swap_pb"

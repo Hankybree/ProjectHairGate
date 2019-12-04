@@ -55,6 +55,9 @@ public class GalleryGridAdapter extends RecyclerView.Adapter<GalleryGridAdapter.
                     med en kryss ikon för att stänga ner bilden och välja igen, samt en fotoikon för
                     att genomföra faceswap med den valda bilden.
                      */
+
+                    Picasso.get().load(mData.get(position).getImg()).into(choosenImage);
+                    choosenImage.setImageResource(position);
                 }
             });
     }
