@@ -7,14 +7,13 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -26,6 +25,7 @@ import com.google.firebase.ml.vision.face.FirebaseVisionFaceContour;
 import com.google.firebase.ml.vision.face.FirebaseVisionFaceDetector;
 import com.google.firebase.ml.vision.face.FirebaseVisionFaceDetectorOptions;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,13 +51,29 @@ public class FaceSwap {
     ImageView iv;
     ProgressBar pb;
 
-    public FaceSwap(Bitmap faceImg, Bitmap faceImg2, ImageView iv, ProgressBar pb) {
+    DatabaseHelper db;
+
+    public FaceSwap(Bitmap faceImg, Bitmap faceImg2, ImageView iv, ProgressBar pb, DatabaseHelper db) {
 
         this.iv = iv;
         this.pb = pb;
+        this.db = db;
 
         this.faceImg = faceImg;
         faceVsnImg = FirebaseVisionImage.fromBitmap(faceImg);
+
+        this.faceImg2 = faceImg2;
+        faceVsnImg2 = FirebaseVisionImage.fromBitmap(faceImg2);
+
+        faceDetector = createDetector();
+    }
+
+    public FaceSwap(byte[] storedFace, Bitmap faceImg2, ImageView iv, ProgressBar pb) {
+        this.iv = iv;
+        this.pb = pb;
+
+        this.croppedImage = BitmapFactory.decodeByteArray(storedFace, 0, storedFace.length);
+        //faceVsnImg = FirebaseVisionImage.fromBitmap(faceImg);
 
         this.faceImg2 = faceImg2;
         faceVsnImg2 = FirebaseVisionImage.fromBitmap(faceImg2);
@@ -87,6 +103,10 @@ public class FaceSwap {
                 });
     }
 
+    public void runDetectorWithStoredImage() {
+        extractFace();
+    }
+
     private void detectFace(List<FirebaseVisionFace> firebaseVisionFaces, Bitmap mutableImage) {
 
         if(firebaseVisionFaces == null || mutableImage == null) {
@@ -96,6 +116,12 @@ public class FaceSwap {
         pointsFace1 = null;
         for (int i = 0; i < firebaseVisionFaces.size(); i++) {
             pointsFace1 = firebaseVisionFaces.get(i).getContour(FirebaseVisionFaceContour.FACE).getPoints();
+        }
+
+        if(pointsFace1 == null) {
+            pb.setVisibility(View.INVISIBLE);
+            //Toast toast = Toast.makeText(GalleryActivity.class, "Hittade inget ansikte. Försök igen med främre kameran", Toast.LENGTH_LONG).show();
+            return;
         }
 
         Canvas canvas = new Canvas(mutableImage);
@@ -130,6 +156,8 @@ public class FaceSwap {
         croppedImage.setHasAlpha(true);
 
         setPixelsInBitmap(croppedImage);
+
+        db.addData(getBytes(croppedImage));
 
         extractFace();
     }
@@ -292,10 +320,6 @@ public class FaceSwap {
             points = firebaseVisionFaces.get(i).getContour(FirebaseVisionFaceContour.FACE).getPoints();
         }
 
-        for (int i = 0; i < points.size(); i++) {
-            Log.d("frank", "pointsFace2: " + points.get(i).getX());
-        }
-
         float leftX = getLeftmostX(points);
         float topY = getTopY(points);
 
@@ -312,5 +336,11 @@ public class FaceSwap {
         iv.setImageBitmap(mutable);
 
         pb.setVisibility(View.INVISIBLE);
+    }
+
+    private byte[] getBytes(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
+        return stream.toByteArray();
     }
 }
