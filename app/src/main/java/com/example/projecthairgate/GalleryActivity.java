@@ -60,7 +60,7 @@ public class GalleryActivity extends AppCompatActivity {
     private FirebaseStorage storage;
     private StorageReference storageRef;
     private ArrayList<Bitmap> galleryBitmaps;
-    private final long ONE_MEGABYTE = 1024 * 1024;
+    private final long ONE_MEGABYTE = 1024 * 1024 * 5;
 
     int selectedImagePos;
 
@@ -252,8 +252,6 @@ public class GalleryActivity extends AppCompatActivity {
     public void onClickFaceSwapStoredImage(View view) {
 
         byte[] bytes = dbHelper.getContent();
-
-        Log.d("frank", "Byte array " + bytes.toString());
 
         FaceSwap faceSwap = new FaceSwap(bytes, galleryBitmaps.get(selectedImagePos), iv, pb);
         faceSwap.runDetectorWithStoredImage();

@@ -13,12 +13,10 @@ import androidx.annotation.Nullable;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    public static final String TAG = "Oliver";
-    public static final String DATABASE_NAME = "userface.db";
-    public static final String TABLE_NAME = "saved_face";
-    public static final String COL1 = "ID";
-    public static final String COL2 = "FACE_IMAGE";
-    public static final byte[] TEMP = null;
+    private static final String TAG = "Oliver";
+    private static final String DATABASE_NAME = "userface.db";
+    private static final String TABLE_NAME = "saved_face";
+    private static final String COL2 = "FACE_IMAGE";
 
 
     public DatabaseHelper(Context context) {
@@ -32,12 +30,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "FACE_IMAGE BLOB) ";
 
         db.execSQL(createTable);
-
-        /*ContentValues contentValues = new ContentValues();
-        contentValues.put(COL2, TEMP);
-
-        long result = db.insert(TABLE_NAME, null, contentValues);*/
-
     }
 
     @Override
@@ -48,49 +40,54 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public boolean addData(byte[] item) {
 
+        int resultUpdate;
+        long resultInsert;
+
         SQLiteDatabase db = this.getWritableDatabase();
 
-        /*ContentValues contentValues = new ContentValues();
-        contentValues.put(COL2, item);
-
-        int result = db.update(TABLE_NAME, contentValues, COL2, null);
-
-        if (result == -1) {
-            Log.d(TAG, "addData: failed");
-            return false;
-
-        } else {
-            Log.d(TAG, "addData: successfully added data");
-            return true;
-        }*/
+        Cursor data = db.rawQuery("SELECT FACE_IMAGE FROM " + TABLE_NAME,null);
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL2, item);
 
-        long result = db.insert(TABLE_NAME, null, contentValues);
+        if(data.moveToNext()) {
 
-        if (result == -1) {
-            Log.d(TAG, "addData: failed");
-            return false;
+            resultUpdate = db.update(TABLE_NAME, contentValues, null, null);
+
+            data.close();
+
+            if (resultUpdate == -1) {
+                Log.d(TAG, "addData: failed");
+                return false;
+
+            } else {
+                Log.d(TAG, "addData: successfully added data");
+                return true;
+            }
 
         } else {
-            Log.d(TAG, "addData: successfully added data");
-            return true;
+
+            resultInsert = db.insert(TABLE_NAME, null, contentValues);
+
+            data.close();
+
+            if (resultInsert == -1) {
+                Log.d(TAG, "addData: failed");
+                return false;
+
+            } else {
+                Log.d(TAG, "addData: successfully added data");
+                return true;
+            }
         }
-
-    }
-
-    public void dropTable(SQLiteDatabase db){
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
     }
 
     public byte[] getContent() {
 
-        byte[] imageBytes = null;
+        byte[] imageBytes;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor data = db.rawQuery("SELECT FACE_IMAGE FROM " + TABLE_NAME,null);
-        Log.d("frank", "Columnindex " + data.getColumnIndex(COL2));
 
         data.moveToNext();
         imageBytes = data.getBlob(0);

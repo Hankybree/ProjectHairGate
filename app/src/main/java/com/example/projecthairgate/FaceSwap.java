@@ -7,14 +7,13 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -117,6 +116,12 @@ public class FaceSwap {
         pointsFace1 = null;
         for (int i = 0; i < firebaseVisionFaces.size(); i++) {
             pointsFace1 = firebaseVisionFaces.get(i).getContour(FirebaseVisionFaceContour.FACE).getPoints();
+        }
+
+        if(pointsFace1 == null) {
+            pb.setVisibility(View.INVISIBLE);
+            //Toast toast = Toast.makeText(GalleryActivity.class, "Hittade inget ansikte. Försök igen med främre kameran", Toast.LENGTH_LONG).show();
+            return;
         }
 
         Canvas canvas = new Canvas(mutableImage);
