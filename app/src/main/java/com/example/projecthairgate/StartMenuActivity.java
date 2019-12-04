@@ -32,11 +32,11 @@ public class StartMenuActivity extends AppCompatActivity {
     }
 
     private void initData() {
-         listImages.add(R.drawable.mainview_bokatid);
-         listImages.add(R.drawable.mainview_behandlingar);
-         listImages.add(R.drawable.mainview_galleri);
-         listImages.add(R.drawable.mainview_kamera);
-         listImages.add(R.drawable.mainview_nyteam);
+         listImages.add(R.drawable.nymainview_bokatid);
+         listImages.add(R.drawable.nymainview_behandlingar);
+         listImages.add(R.drawable.nymainview_gallery);
+         listImages.add(R.drawable.nymainview_kontakt);
+         listImages.add(R.drawable.nymainview_vartteam);
          //listImages.add(R.drawable.orginalbild_hemsidan);
 
          listTitle.add("BOKA TID");

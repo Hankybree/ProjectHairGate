@@ -21,7 +21,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">40sp</item>
-        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textColor">@color/colorGoldO45</item>
         <item name="android:fontFamily">@font/playfairdisplay_bolditalic</item>
     </style>
 
