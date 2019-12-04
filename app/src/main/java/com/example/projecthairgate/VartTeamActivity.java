@@ -15,6 +15,7 @@ public class VartTeamActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_vartteam);
 
         final ImageButton imageButton = findViewById(R.id.lars);

@@ -60,4 +60,11 @@
       android:background="?android:selectableItemBackground"
       android:onClick="onClickTakePicture" />
 
+  <Button
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignBottom="@+id/kamera_button"
+      android:layout_toEndOf="@+id/kamera_button"
+      android:onClick="onClickFaceSwapStoredImage"/>
+
 </RelativeLayout>
