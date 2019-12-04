@@ -1,6 +1,7 @@
 package com.example.projecthairgate;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +45,7 @@ public class GalleryGridAdapter extends RecyclerView.Adapter<GalleryGridAdapter.
 
             // Väljer en image ur recyclerviewen (För att kunna använda vid faceswap)
             selectedImage = holder.itemView.findViewById(R.id.row_img);
-
+            choosenImage = holder.itemView.findViewById(R.id.test_view);
             selectedImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -56,8 +57,8 @@ public class GalleryGridAdapter extends RecyclerView.Adapter<GalleryGridAdapter.
                     att genomföra faceswap med den valda bilden.
                      */
 
+
                     Picasso.get().load(mData.get(position).getImg()).into(choosenImage);
-                    choosenImage.setImageResource(position);
                 }
             });
     }
