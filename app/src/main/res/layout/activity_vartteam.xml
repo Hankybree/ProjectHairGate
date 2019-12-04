@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:src="@drawable/linn"/>
 
-    <ImageButton
+    <ImageView
         android:id="@+id/lars"
         android:padding="16dp"
         android:layout_width="wrap_content"
