@@ -245,13 +245,15 @@ public class GalleryActivity extends AppCompatActivity {
 
         selectedImagePos = adapter.getPositionOfDbPics();
 
-        FaceSwap faceSwap = new FaceSwap(faceToSwap, galleryBitmaps.get(selectedImagePos), iv, pb, dbHelper);
+        FaceSwap faceSwap = new FaceSwap(faceToSwap, galleryBitmaps.get(selectedImagePos), iv, pb, dbHelper, getApplicationContext());
         faceSwap.runFaceDetector();
     }
 
     public void onClickFaceSwapStoredImage(View view) {
 
         byte[] bytes = dbHelper.getContent();
+
+        pb.setVisibility(View.VISIBLE);
 
         FaceSwap faceSwap = new FaceSwap(bytes, galleryBitmaps.get(selectedImagePos), iv, pb);
         faceSwap.runDetectorWithStoredImage();
