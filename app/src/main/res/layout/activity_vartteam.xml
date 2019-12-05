@@ -1,31 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:columnCount="2"
-    android:rowCount="4"
-    android:background="@color/colorPrimary"
-    android:padding="16dp">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_columnSpan="2"
-        style="@style/titeltxtvit"
-        android:text="Vårt Team"/>
+        android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/linn"
-        android:padding="16dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/linn"/>
+        <GridLayout
+            android:layout_width="match_parent" android:layout_height="match_parent"
+            android:columnCount="2"
+            android:rowCount="4"
+            android:layout_centerInParent="true"
+            android:background="@color/colorPrimary">
 
-    <ImageView
-        android:id="@+id/lars"
-        android:padding="16dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/lars"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_columnSpan="2"
+                style="@style/titeltxtvit"
+                android:text="Vårt Team"/>
 
+            <ImageView
+                android:id="@+id/linn"
+                android:padding="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/linn"/>
 
-</GridLayout>
+            <ImageView
+                android:id="@+id/lars"
+                android:padding="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/lars"/>
+
+            <ImageView
+                android:id="@+id/emelie"
+                android:padding="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/emelie"/>
+
+            <ImageView
+                android:id="@+id/isabelle"
+                android:padding="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/isabelle"/>
+
+            <ImageView
+                android:id="@+id/jessica"
+                android:padding="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/jessica"/>
+
+            <ImageView
+                android:id="@+id/linnea"
+                android:padding="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/linnea"/>
+
+            <ImageView
+                android:id="@+id/louise"
+                android:padding="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/louise"/>
+
+            <ImageView
+                android:id="@+id/oliver"
+                android:padding="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/oliver"/>
+
+            <ImageView
+                android:id="@+id/cecilia"
+                android:padding="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/cecilia"/>
+
+        </GridLayout>
+    </RelativeLayout>
+
+</ScrollView>
