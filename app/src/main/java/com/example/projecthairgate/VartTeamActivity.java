@@ -28,26 +28,7 @@ public class VartTeamActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_vartteam);
 
-
-        imageLars = findViewById(R.id.lars);
-        imageLars.setTag("bild");
-        imageLinn = findViewById(R.id.linn);
-        imageLinn.setTag("bild");
-        imageEmelie = findViewById(R.id.emelie);
-        imageEmelie.setTag("bild");
-        imageIsabelle = findViewById(R.id.isabelle);
-        imageIsabelle.setTag("bild");
-        imageJessica = findViewById(R.id.jessica);
-        imageJessica.setTag("bild");
-        imageLinnea = findViewById(R.id.linnea);
-        imageLinnea.setTag("bild");
-        imageLouise = findViewById(R.id.louise);
-        imageLouise.setTag("bild");
-        imageOliver = findViewById(R.id.oliver);
-        imageOliver.setTag("bild");
-        imageCecilia = findViewById(R.id.cecilia);
-        imageCecilia.setTag("bild");
-
+        getImageViewIDs();
 
         imageLars.setOnClickListener(new View.OnClickListener() {
 
@@ -210,5 +191,26 @@ public class VartTeamActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void getImageViewIDs() {
+        imageLars = findViewById(R.id.lars);
+        imageLars.setTag("bild");
+        imageLinn = findViewById(R.id.linn);
+        imageLinn.setTag("bild");
+        imageEmelie = findViewById(R.id.emelie);
+        imageEmelie.setTag("bild");
+        imageIsabelle = findViewById(R.id.isabelle);
+        imageIsabelle.setTag("bild");
+        imageJessica = findViewById(R.id.jessica);
+        imageJessica.setTag("bild");
+        imageLinnea = findViewById(R.id.linnea);
+        imageLinnea.setTag("bild");
+        imageLouise = findViewById(R.id.louise);
+        imageLouise.setTag("bild");
+        imageOliver = findViewById(R.id.oliver);
+        imageOliver.setTag("bild");
+        imageCecilia = findViewById(R.id.cecilia);
+        imageCecilia.setTag("bild");
     }
+}
 
