@@ -36,7 +36,7 @@ public class StartMenuActivity extends AppCompatActivity {
          listImages.add(R.drawable.nymainview_behandlingar);
          listImages.add(R.drawable.nymainview_galleri);
          listImages.add(R.drawable.nymainview_kontakt);
-         listImages.add(R.drawable.nymainview_vartteam);
+         listImages.add(R.drawable.vartteam_mainview);
          //listImages.add(R.drawable.orginalbild_hemsidan);
 
          listTitle.add("BOKA TID");
