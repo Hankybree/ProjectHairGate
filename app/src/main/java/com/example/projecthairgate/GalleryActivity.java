@@ -101,7 +101,7 @@ public class GalleryActivity extends AppCompatActivity {
                     }
                 }
 
-                adapter = new GalleryGridAdapter(getApplicationContext(), images);
+                adapter = new GalleryGridAdapter(getApplicationContext(), images, iv);
                 staggeredRv.setAdapter(adapter);
             }
 

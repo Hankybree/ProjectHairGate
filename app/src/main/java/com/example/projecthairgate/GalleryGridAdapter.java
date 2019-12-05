@@ -20,10 +20,12 @@ public class GalleryGridAdapter extends RecyclerView.Adapter<GalleryGridAdapter.
     private List<GalleryRows> mData;
     private ImageView selectedImage;
     private int positionOfDbPics;
+    private ImageView iv;
 
-    public GalleryGridAdapter(Context mContext, List<GalleryRows> mData) {
+    public GalleryGridAdapter(Context mContext, List<GalleryRows> mData, ImageView iv) {
         this.mContext = mContext;
         this.mData = mData;
+        this.iv = iv;
     }
 
     @NonNull
@@ -48,6 +50,7 @@ public class GalleryGridAdapter extends RecyclerView.Adapter<GalleryGridAdapter.
             public void onClick(View view) {
                 Toast.makeText(mContext, "Selected " + position, Toast.LENGTH_SHORT).show();
                 positionOfDbPics = position;
+                iv.setImageBitmap(mData.get(position).getBitmap());
 
                     /* Fixa så att klickad bild visas i en imageview ovanpå recyclerviewen
                     med en kryss ikon för att stänga ner bilden och välja igen, samt en fotoikon för
