@@ -207,14 +207,18 @@ public class GalleryActivity extends AppCompatActivity {
 
     public void onClickFaceSwapStoredImage(View view) {
 
-        byte[] bytes = dbHelper.getContent();
+        if (dbHelper.getContent() != null) {
+            byte[] bytes = dbHelper.getContent();
 
-        selectedImagePos = adapter.getPositionOfDbPics();
+            selectedImagePos = adapter.getPositionOfDbPics();
 
-        pb.setVisibility(View.VISIBLE);
+            pb.setVisibility(View.VISIBLE);
 
-        FaceSwap faceSwap = new FaceSwap(bytes, images.get(selectedImagePos).getBitmap(), iv, pb);
-        faceSwap.runDetectorWithStoredImage();
+            FaceSwap faceSwap = new FaceSwap(bytes, images.get(selectedImagePos).getBitmap(), iv, pb);
+            faceSwap.runDetectorWithStoredImage();
+        } else {
+            Toast.makeText(this, "Ingen bild kunde hittas. Ta ett foto för att testa frisyr.", Toast.LENGTH_LONG).show();
+        }
     }
 
     public void onClickIg(View view) {

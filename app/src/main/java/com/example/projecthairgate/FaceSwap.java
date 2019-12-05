@@ -123,7 +123,7 @@ public class FaceSwap {
 
         if(pointsFace1 == null) {
             pb.setVisibility(View.INVISIBLE);
-            Toast.makeText(context, "Hittade inget ansikte. Försök igen med främre kameran", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Hittade inget ansikte. Försök igen med främre kameran.", Toast.LENGTH_LONG).show();
             return;
         }
 

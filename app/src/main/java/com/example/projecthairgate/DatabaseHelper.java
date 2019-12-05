@@ -89,7 +89,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor data = db.rawQuery("SELECT FACE_IMAGE FROM " + TABLE_NAME,null);
 
-        data.moveToNext();
+        if (!data.moveToNext()) {
+            return null;
+        }
         imageBytes = data.getBlob(0);
 
         data.close();
