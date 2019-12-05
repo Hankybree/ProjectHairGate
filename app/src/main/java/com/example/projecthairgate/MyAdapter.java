@@ -51,7 +51,7 @@ public class MyAdapter extends PagerAdapter {
         View view = layoutInflater.inflate(R.layout.card_item,container,false);
 
         ImageView imageView = view.findViewById(R.id.imageButton);
-        //TextView textView = view.findViewById(R.id.on_card_text);
+        //TextView kan vara här också
 
         //Sets image and title based on position
         imageView.setImageResource(listImages.get(position));
