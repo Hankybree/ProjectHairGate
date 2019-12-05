@@ -1,5 +1,6 @@
 package com.example.projecthairgate;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -31,33 +32,35 @@ import java.util.List;
 
 public class FaceSwap {
 
-    Bitmap faceImg;
-    FirebaseVisionImage faceVsnImg;
-    List<FirebaseVisionPoint> pointsFace1;
+    private Bitmap faceImg;
+    private FirebaseVisionImage faceVsnImg;
+    private List<FirebaseVisionPoint> pointsFace1;
 
-    Bitmap faceImg2;
-    FirebaseVisionImage faceVsnImg2;
+    private Bitmap faceImg2;
+    private FirebaseVisionImage faceVsnImg2;
 
-    float rotFace1;
-    float rotFace2;
+    private float rotFace1;
+    private float rotFace2;
 
-    Bitmap croppedImage;
-    Bitmap finalImage;
+    private Bitmap croppedImage;
+    private Bitmap finalImage;
 
-    Path path;
+    private Path path;
 
-    FirebaseVisionFaceDetector faceDetector;
+    private FirebaseVisionFaceDetector faceDetector;
 
-    ImageView iv;
-    ProgressBar pb;
+    private ImageView iv;
+    private ProgressBar pb;
+    private Context context;
 
-    DatabaseHelper db;
+    private DatabaseHelper db;
 
-    public FaceSwap(Bitmap faceImg, Bitmap faceImg2, ImageView iv, ProgressBar pb, DatabaseHelper db) {
+    public FaceSwap(Bitmap faceImg, Bitmap faceImg2, ImageView iv, ProgressBar pb, DatabaseHelper db, Context context) {
 
         this.iv = iv;
         this.pb = pb;
         this.db = db;
+        this.context = context;
 
         this.faceImg = faceImg;
         faceVsnImg = FirebaseVisionImage.fromBitmap(faceImg);
@@ -73,7 +76,6 @@ public class FaceSwap {
         this.pb = pb;
 
         this.croppedImage = BitmapFactory.decodeByteArray(storedFace, 0, storedFace.length);
-        //faceVsnImg = FirebaseVisionImage.fromBitmap(faceImg);
 
         this.faceImg2 = faceImg2;
         faceVsnImg2 = FirebaseVisionImage.fromBitmap(faceImg2);
@@ -92,6 +94,7 @@ public class FaceSwap {
                         Bitmap mutableImage = faceImg.copy(Bitmap.Config.ARGB_8888, true);
 
                         detectFace(firebaseVisionFaces, mutableImage);
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -120,7 +123,7 @@ public class FaceSwap {
 
         if(pointsFace1 == null) {
             pb.setVisibility(View.INVISIBLE);
-            //Toast toast = Toast.makeText(GalleryActivity.class, "Hittade inget ansikte. Försök igen med främre kameran", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Hittade inget ansikte. Försök igen med främre kameran", Toast.LENGTH_LONG).show();
             return;
         }
 

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -17,15 +16,16 @@ import java.util.List;
 
 public class GalleryGridAdapter extends RecyclerView.Adapter<GalleryGridAdapter.ImageViewHolder> {
 
-    Context mContext;
-    List<GalleryRows> mData;
-    ImageView selectedImage;
-    ImageView choosenImage;
+    private Context mContext;
+    private List<GalleryRows> mData;
+    private ImageView selectedImage;
     private int positionOfDbPics;
+    private ImageView iv;
 
-    public GalleryGridAdapter(Context mContext, List<GalleryRows> mData) {
+    public GalleryGridAdapter(Context mContext, List<GalleryRows> mData, ImageView iv) {
         this.mContext = mContext;
         this.mData = mData;
+        this.iv = iv;
     }
 
     @NonNull
@@ -42,22 +42,24 @@ public class GalleryGridAdapter extends RecyclerView.Adapter<GalleryGridAdapter.
 
         Picasso.get().load(mData.get(position).getImg()).into(holder.img);
 
-            // Väljer en image ur recyclerviewen (För att kunna använda vid faceswap)
-            selectedImage = holder.itemView.findViewById(R.id.row_img);
+        // Väljer en image ur recyclerviewen (För att kunna använda vid faceswap)
+        selectedImage = holder.itemView.findViewById(R.id.row_img);
 
-            selectedImage.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(mContext, "Selected " + position, Toast.LENGTH_SHORT).show();
-                    positionOfDbPics = position;
+        selectedImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(mContext, "Selected " + position, Toast.LENGTH_SHORT).show();
+                positionOfDbPics = position;
+                iv.setImageBitmap(mData.get(position).getBitmap());
 
                     /* Fixa så att klickad bild visas i en imageview ovanpå recyclerviewen
                     med en kryss ikon för att stänga ner bilden och välja igen, samt en fotoikon för
                     att genomföra faceswap med den valda bilden.
                      */
-                }
-            });
+            }
+        });
     }
+
     public int getPositionOfDbPics() {
         return positionOfDbPics;
     }
