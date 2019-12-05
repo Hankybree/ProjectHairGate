@@ -45,7 +45,6 @@ public class GalleryGridAdapter extends RecyclerView.Adapter<GalleryGridAdapter.
 
             // Väljer en image ur recyclerviewen (För att kunna använda vid faceswap)
             selectedImage = holder.itemView.findViewById(R.id.row_img);
-            choosenImage = holder.itemView.findViewById(R.id.test_view);
             selectedImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
