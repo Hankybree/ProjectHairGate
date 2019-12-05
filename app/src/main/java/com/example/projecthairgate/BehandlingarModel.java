@@ -14,15 +14,7 @@ public class BehandlingarModel {
         return image;
     }
 
-    public void setImage(int image) {
-        this.image = image;
-    }
-
     public int getImageTxt() {
         return imageTxt;
-    }
-
-    public void setText(int imageTxt) {
-        this.imageTxt = imageTxt;
     }
 }

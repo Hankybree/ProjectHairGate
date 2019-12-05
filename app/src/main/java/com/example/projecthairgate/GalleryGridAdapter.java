@@ -51,11 +51,6 @@ public class GalleryGridAdapter extends RecyclerView.Adapter<GalleryGridAdapter.
                 Toast.makeText(mContext, "Selected " + position, Toast.LENGTH_SHORT).show();
                 positionOfDbPics = position;
                 iv.setImageBitmap(mData.get(position).getBitmap());
-
-                    /* Fixa så att klickad bild visas i en imageview ovanpå recyclerviewen
-                    med en kryss ikon för att stänga ner bilden och välja igen, samt en fotoikon för
-                    att genomföra faceswap med den valda bilden.
-                     */
             }
         });
     }

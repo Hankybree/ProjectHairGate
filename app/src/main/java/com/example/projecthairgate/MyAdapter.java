@@ -65,7 +65,6 @@ public class MyAdapter extends PagerAdapter {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "Clicked "+position, Toast.LENGTH_SHORT).show();
                 switch (position) {
                     case 0:
                         view.getContext().startActivity(new Intent(view.getContext(),BookingActivity.class));
@@ -78,14 +77,11 @@ public class MyAdapter extends PagerAdapter {
                         view.getContext().startActivity(new Intent(view.getContext(),GalleryActivity.class));
                         break;
                     case 3:
-                        view.getContext().startActivity(new Intent(view.getContext(),KameraActivity.class));
-                        break;
-                    case 4:
                         view.getContext().startActivity(new Intent(view.getContext(),VartTeamActivity.class));
                         break;
-                    case 5:
+                    /*case 4:
                         view.getContext().startActivity(new Intent(view.getContext(),AboutActivity.class));
-                        break;
+                        break;*/
                 }
 
             }

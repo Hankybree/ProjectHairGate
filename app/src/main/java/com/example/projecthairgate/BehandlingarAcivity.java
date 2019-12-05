@@ -1,13 +1,10 @@
 package com.example.projecthairgate;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
 import android.animation.ArgbEvaluator;
 import android.os.Bundle;
-import android.text.Layout;
-import android.widget.Adapter;
 
 import java.util.ArrayList;
 import java.util.List;

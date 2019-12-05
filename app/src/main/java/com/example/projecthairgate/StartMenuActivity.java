@@ -1,11 +1,7 @@
 package com.example.projecthairgate;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
 
 
 import com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager;
@@ -35,16 +31,14 @@ public class StartMenuActivity extends AppCompatActivity {
          listImages.add(R.drawable.nymainview_bokatid);
          listImages.add(R.drawable.nymainview_behandlingar);
          listImages.add(R.drawable.nymainview_galleri);
-         listImages.add(R.drawable.nymainview_kontakt);
+        // listImages.add(R.drawable.nymainview_kontakt);
          listImages.add(R.drawable.vartteam_mainview);
-         //listImages.add(R.drawable.orginalbild_hemsidan);
 
          listTitle.add("BOKA TID");
          listTitle.add("BEHANDLINGAR");
          listTitle.add("GALLERI");
-         listTitle.add("KAMERA");
          listTitle.add("VÅRT TEAM");
-         listTitle.add("KONTAKT");
+         //listTitle.add("KONTAKT");
 
         Log.d("jakob", "initData successful");
     }

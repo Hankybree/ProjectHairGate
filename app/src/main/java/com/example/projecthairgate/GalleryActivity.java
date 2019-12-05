@@ -201,6 +201,8 @@ public class GalleryActivity extends AppCompatActivity {
 
         selectedImagePos = adapter.getPositionOfDbPics();
 
+        Log.d("frank", "Pos is: " + selectedImagePos);
+
         FaceSwap faceSwap = new FaceSwap(faceToSwap, images.get(selectedImagePos).getBitmap(), iv, pb, dbHelper, getApplicationContext());
         faceSwap.runFaceDetector();
     }
