@@ -48,7 +48,6 @@ public class GalleryGridAdapter extends RecyclerView.Adapter<GalleryGridAdapter.
         selectedImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext, "Selected " + position, Toast.LENGTH_SHORT).show();
                 positionOfDbPics = position;
                 iv.setImageBitmap(mData.get(position).getBitmap());
             }

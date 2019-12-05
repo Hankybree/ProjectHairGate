@@ -36,18 +36,23 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
 
-
-        <activity android:name=".KameraActivity"></activity>
         <activity
             android:name=".StartMenuActivity"
             android:label="@string/title_activity_start_menu"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".BookingActivity" />
-        <activity android:name=".AboutActivity" />
-        <activity android:name=".BehandlingarAcivity"/>
-        <activity android:name=".GalleryActivity"/>
-        <activity android:name=".VartTeamActivity"/>
-        <activity android:name=".MainActivity">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".BookingActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".AboutActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".BehandlingarAcivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".GalleryActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".VartTeamActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
