@@ -6,23 +6,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageButton
+        <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/imageButton"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/on_card_text"
-            android:padding="8dp"
-            android:text="BOKA  TID"
-            android:textColor="@color/colorWhite"
-            android:layout_gravity="bottom"
-            style="@style/titeltxtvit"
-            android:background="@color/colorPrimaryO45"
-
-            />
 
     </FrameLayout>
 

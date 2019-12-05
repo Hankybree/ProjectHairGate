@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,19 +50,19 @@ public class MyAdapter extends PagerAdapter {
     public Object instantiateItem(@NonNull ViewGroup container, final int position) {
         View view = layoutInflater.inflate(R.layout.card_item,container,false);
 
-        ImageButton imageButton = view.findViewById(R.id.imageButton);
-        TextView textView = view.findViewById(R.id.on_card_text);
+        ImageView imageView = view.findViewById(R.id.imageButton);
+        //TextView textView = view.findViewById(R.id.on_card_text);
 
         //Sets image and title based on position
-        imageButton.setImageResource(listImages.get(position));
-        textView.setText(listTitle.get(position));
+        imageView.setImageResource(listImages.get(position));
+        //textView.setText(listTitle.get(position));
 
         /*
         OnClick fixad. Skapa alla klasser, sen gör en lista med intents för att skicka till rätt med
         hjälp av position
         */
 
-        imageButton.setOnClickListener(new View.OnClickListener() {
+        imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(context, "Clicked "+position, Toast.LENGTH_SHORT).show();
