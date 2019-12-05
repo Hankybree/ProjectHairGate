@@ -60,10 +60,14 @@ public class GalleryActivity extends AppCompatActivity {
     private FirebaseStorage storage;
     private StorageReference storageRef;
     private ArrayList<Bitmap> galleryBitmaps;
-    private final long ONE_MEGABYTE = 1024 * 1024;
+    private final long ONE_MEGABYTE = 1024 * 1024 * 5;
+
+    int selectedImagePos;
 
     private ImageView iv;
     private ProgressBar pb;
+
+    DatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +89,8 @@ public class GalleryActivity extends AppCompatActivity {
 
         iv = findViewById(R.id.test_view);
         pb = findViewById(R.id.face_swap_pb);
+
+        dbHelper = new DatabaseHelper(this);
 
         storageRef.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
 
@@ -237,32 +243,18 @@ public class GalleryActivity extends AppCompatActivity {
 
     private void generateFaceSwappedImage() {
 
-        final int selectedImagePos = adapter.getPositionOfDbPics();
-        /*storageRef.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
+        selectedImagePos = adapter.getPositionOfDbPics();
 
-            @Override
-            public void onSuccess(ListResult listResult) {
-
-
-                for (int i = 0; i < listResult.getItems().size(); i++) {
-                    listResult.getItems().get(i).getBytes(ONE_MEGABYTE)
-                            .addOnSuccessListener(new OnSuccessListener<byte[]>() {
-
-                                @Override
-                                public void onSuccess(byte[] bytes) {
-
-                                    galleryBitmaps.add(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
-
-                                    FaceSwap faceSwap = new FaceSwap(faceToSwap, galleryBitmaps.get(selectedImagePos), iv, pb);
-                                    faceSwap.runFaceDetector();
-                                }
-                            });
-                }
-            }
-        });*/
-
-        FaceSwap faceSwap = new FaceSwap(faceToSwap, galleryBitmaps.get(selectedImagePos), iv, pb);
+        FaceSwap faceSwap = new FaceSwap(faceToSwap, galleryBitmaps.get(selectedImagePos), iv, pb, dbHelper);
         faceSwap.runFaceDetector();
+    }
+
+    public void onClickFaceSwapStoredImage(View view) {
+
+        byte[] bytes = dbHelper.getContent();
+
+        FaceSwap faceSwap = new FaceSwap(bytes, galleryBitmaps.get(selectedImagePos), iv, pb);
+        faceSwap.runDetectorWithStoredImage();
     }
 
     public void onClickIg(View view) {
