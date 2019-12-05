@@ -8,15 +8,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.hardware.Camera;
-import android.hardware.camera2.CameraAccessException;
-import android.hardware.camera2.CameraCharacteristics;
-import android.hardware.camera2.CameraManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -27,15 +22,11 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.ListResult;
-import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.io.IOException;
@@ -57,11 +48,6 @@ public class GalleryActivity extends AppCompatActivity {
     private List<GalleryRows> images;
     boolean imageAlreadyExists;
 
-    private FirebaseStorage storage;
-    private StorageReference storageRef;
-    private ArrayList<Bitmap> galleryBitmaps;
-    private final long ONE_MEGABYTE = 1024 * 1024 * 5;
-
     int selectedImagePos;
 
     private ImageView iv;
@@ -81,36 +67,12 @@ public class GalleryActivity extends AppCompatActivity {
         mRoot = FirebaseDatabase.getInstance();
         mRef = mRoot.getReference("Images");
 
-        storage = FirebaseStorage.getInstance();
-        storageRef = storage.getReference().child("images");
-        galleryBitmaps = new ArrayList<>();
-
         images = new ArrayList<>();
 
         iv = findViewById(R.id.test_view);
         pb = findViewById(R.id.face_swap_pb);
 
         dbHelper = new DatabaseHelper(this);
-
-        storageRef.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
-
-            @Override
-            public void onSuccess(ListResult listResult) {
-
-
-                for (int i = 0; i < listResult.getItems().size(); i++) {
-                    listResult.getItems().get(i).getBytes(ONE_MEGABYTE)
-                            .addOnSuccessListener(new OnSuccessListener<byte[]>() {
-
-                                @Override
-                                public void onSuccess(byte[] bytes) {
-
-                                    galleryBitmaps.add(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
-                                }
-                            });
-                }
-            }
-        });
     }
 
     @Override
@@ -139,7 +101,7 @@ public class GalleryActivity extends AppCompatActivity {
                     }
                 }
 
-                adapter = new GalleryGridAdapter(getApplicationContext(), images);
+                adapter = new GalleryGridAdapter(getApplicationContext(), images, iv);
                 staggeredRv.setAdapter(adapter);
             }
 
@@ -169,12 +131,6 @@ public class GalleryActivity extends AppCompatActivity {
                 pb.setVisibility(View.VISIBLE);
 
                 generateFaceSwappedImage();
-
-                // TODO face swap-code
-
-                // TODO send new gallery to sqlite db
-
-                // TODO load images from sqlite db
             }
         }
     }
@@ -245,7 +201,7 @@ public class GalleryActivity extends AppCompatActivity {
 
         selectedImagePos = adapter.getPositionOfDbPics();
 
-        FaceSwap faceSwap = new FaceSwap(faceToSwap, galleryBitmaps.get(selectedImagePos), iv, pb, dbHelper);
+        FaceSwap faceSwap = new FaceSwap(faceToSwap, images.get(selectedImagePos).getBitmap(), iv, pb, dbHelper, getApplicationContext());
         faceSwap.runFaceDetector();
     }
 
@@ -253,7 +209,11 @@ public class GalleryActivity extends AppCompatActivity {
 
         byte[] bytes = dbHelper.getContent();
 
-        FaceSwap faceSwap = new FaceSwap(bytes, galleryBitmaps.get(selectedImagePos), iv, pb);
+        selectedImagePos = adapter.getPositionOfDbPics();
+
+        pb.setVisibility(View.VISIBLE);
+
+        FaceSwap faceSwap = new FaceSwap(bytes, images.get(selectedImagePos).getBitmap(), iv, pb);
         faceSwap.runDetectorWithStoredImage();
     }
 
